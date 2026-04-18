@@ -30,9 +30,10 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-| Component Diagram | User Stories | Set up GitHub |
-| Database Schema |  | Set up Scrum |
+|  | Component Diagram | Set up GitHub |
+|  | Database Schema | Set up Scrum |
 |  |  | Set up Expo Project |
+|  |  | User Stories |
 
 ## Requirements Specification
 
