@@ -38,6 +38,15 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 ### User Stories
 
+| As a ... | I want to ... | so that I can ... |
+|---|---|---|
+| user | enter physiological data | generate macro and calorie recommendations. |
+| user | view macro and calorie recommendations | review the information. |
+| user | view workouts | select a workout. |
+| user | view a workout | review the information. |
+| user | edit a workout | modify the information. |
+| user | add a workout | input new information. |
+
 ## Architecture Specification
 
 ### Component Diagram
