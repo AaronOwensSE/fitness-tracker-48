@@ -8,14 +8,14 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-| Macros and Calories | Setup |  |
-| Workouts | Requirements Specification |  |
-| Testing | Architecture Specification |  |
+| Macros and Calories |  | Setup |
+| Workouts |  | Requirements Specification |
+| Testing |  | Architecture Specification |
 | Deployment | |  |
 
-### Sprint 1 (Friday): Setup, Requirements, and Architecture
+### Sprint 1 (Friday Night): Setup, Requirements Specification, and Architecture Specification
 
-#### Velocity: 
+#### Velocity: 25
 
 #### Backlog
 
@@ -26,14 +26,18 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 | Set up Expo Project | 2 |
 | User Stories | 5 |
 | Component Diagram | 5 |
+| ER Diagram | 5 |
 | Database Schema | 3 |
 
 | To Do | Doing | Done |
 |---|---|---|
-|  | Component Diagram | Set up GitHub |
-|  | Database Schema | Set up Scrum |
+|  |  | Set up GitHub |
+|  |  | Set up Scrum |
 |  |  | Set up Expo Project |
 |  |  | User Stories |
+|  |  | Component Diagram |
+|  |  | ER Diagram |
+|  |  | Database Schema |
 
 ## Requirements Specification
 
