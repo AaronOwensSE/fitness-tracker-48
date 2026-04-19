@@ -93,6 +93,8 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 ## Tools and Technologies
 
+- JavaScript
 - React Native
+- AsyncStorage
 - SQLite
 - Expo
