@@ -8,12 +8,33 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-| Macros and Calories |  | Setup |
-| Workouts |  | Requirements Specification |
-| Testing |  | Architecture Specification |
-| Deployment | |  |
+| Workouts | Macros and Calories | Setup |
+| Testing |  | Requirements Specification |
+| Deployment |  | Architecture Specification |
 
-### Sprint 1 (Friday Night): Setup, Requirements Specification, and Architecture Specification
+### Sprint 2: Macros and Calories
+
+#### Velocity: 
+
+#### Backlog
+
+| Feature | Points |
+|---|---|
+| Formula Logic | 3 |
+| AsyncStorage Logic | 5 |
+| Components | 3 |
+| Pages | 2 |
+| Navigation Logic | 3 |
+| State and Hooks | 5 |
+| Testing | 5 |
+
+| To Do | Doing | Done |
+|---|---|---|
+| Navigation Logic | Components | Formula Logic |
+| State and Hooks | Pages | AsyncStorage Logic |
+| Testing |  |  |
+
+### Sprint 1: Setup, Requirements Specification, and Architecture Specification
 
 #### Velocity: 25
 
