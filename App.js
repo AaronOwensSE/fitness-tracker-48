@@ -16,5 +16,9 @@ export default function App() {
             return <InputsPage onNavigate={setNavPage} />;
         case "OutputsPage":
             return <OutputsPage onNavigate={setNavPage} />;
+        case "PRsPage":
+            return <PRsPage onNavigate={setNavPage} />;
+        case "AddPRPage":
+            return <AddPRPage onNavigate={setNavPage} />;
     }
 }
