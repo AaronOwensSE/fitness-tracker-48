@@ -5,6 +5,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import errors from "./errors.js";
 
 // API
+/**
+ * @throws {DataStorageError}
+ */
 async function setItem(key, value) {
     const jsonValue = JSON.stringify(value);
 
@@ -15,6 +18,9 @@ async function setItem(key, value) {
     }
 }
 
+/**
+ * @throws {DataRetrievalError}
+ */
 async function getItem(key) {
     let jsonValue;
 
