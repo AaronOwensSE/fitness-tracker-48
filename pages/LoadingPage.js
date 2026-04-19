@@ -1,0 +1,24 @@
+// External Dependencies
+import { StyleSheet, Text, View } from "react-native";
+
+// Page
+const LoadingPage = () => {
+    return (
+        <View style={styles.containerView}>
+            <Text>Loading . . .</Text>
+        </View>
+    );
+};
+
+export default LoadingPage;
+
+// Stylesheet
+const styles = StyleSheet.create({
+    containerView: {
+        flex: 1,
+        backgroundColor: "white",
+        marginTop: "51px",
+        justifyContent: "center",
+        alignItems: "center"
+    }
+});

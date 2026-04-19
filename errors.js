@@ -1,11 +1,4 @@
 // API
-class DataStorageError extends Error {
-    constructor(message = "") {
-        super(message);
-        this.name = "DataStorageError";
-    }
-}
-
 class DataRetrievalError extends Error {
     constructor(message = "") {
         super(message);
@@ -13,5 +6,12 @@ class DataRetrievalError extends Error {
     }
 }
 
-const errors = { DataStorageError, DataRetrievalError };
+class DataStorageError extends Error {
+    constructor(message = "") {
+        super(message);
+        this.name = "DataStorageError";
+    }
+}
+
+const errors = { DataRetrievalError, DataStorageError };
 export default errors;

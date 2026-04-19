@@ -8,13 +8,14 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-| Workouts | Macros and Calories | Setup |
+| Workouts |  | Setup |
 | Testing |  | Requirements Specification |
 | Deployment |  | Architecture Specification |
+| Polish |  | Macros and Calories |
 
 ### Sprint 2: Macros and Calories
 
-#### Velocity: 
+#### Velocity: 26
 
 #### Backlog
 
@@ -22,17 +23,21 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 |---|---|
 | Formula Logic | 3 |
 | AsyncStorage Logic | 5 |
-| Components | 3 |
 | Pages | 2 |
+| Components | 3 |
 | Navigation Logic | 3 |
 | State and Hooks | 5 |
 | Testing | 5 |
 
 | To Do | Doing | Done |
 |---|---|---|
-| Navigation Logic | Components | Formula Logic |
-| State and Hooks | Pages | AsyncStorage Logic |
-| Testing |  |  |
+|  |  | Formula Logic |
+|  |  | AsyncStorage Logic |
+|  |  | Pages |
+|  |  | Components |
+|  |  | Navigation Logic |
+|  |  | State and Hooks |
+|  |  | Testing |
 
 ### Sprint 1: Setup, Requirements Specification, and Architecture Specification
 
@@ -81,15 +86,15 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 ### Component Diagram
 
-![A component diagram](./component-diagram.jpeg)
+![A component diagram](./documentation/component-diagram.jpeg)
 
 ### ER Diagram
 
-![An ER diagram](./er-diagram.jpeg)
+![An ER diagram](./documentation/er-diagram.jpeg)
 
 ### App Data and Database Schema
 
-![The app data and database schema](./app-data-and-db-schema.jpeg)
+![The app data and database schema](./documentation/app-data-and-db-schema.jpeg)
 
 ## Tools and Technologies
 

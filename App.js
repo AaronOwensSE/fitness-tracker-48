@@ -1,20 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// External Dependencies
+import { useState } from "react";
+
+// Internal Dependencies
+import LandingPage from "./pages/LandingPage.js";
+import InputsPage from "./pages/InputsPage.js";
+import OutputsPage from "./pages/OutputsPage.js";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    const [ navPage, setNavPage ] = useState("LandingPage");
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    switch (navPage) {
+        case "LandingPage":
+            return <LandingPage onNavigate={setNavPage} />;
+        case "InputsPage":
+            return <InputsPage onNavigate={setNavPage} />;
+        case "OutputsPage":
+            return <OutputsPage onNavigate={setNavPage} />;
+    }
+}

@@ -2,7 +2,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Internal Dependencies
-import errors from "./errors.js";
+import errors from "../errors.js";
 
 // API
 /**
