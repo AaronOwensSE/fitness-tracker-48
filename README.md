@@ -24,7 +24,7 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 | Database Setup | 3 |
 | SQLite Logic | 3 |
 | Pages | 3 |
-| Components | 5 |
+| Components | 2 |
 | State and Hooks | 5 |
 | Testing | 5 |
 
@@ -95,14 +95,16 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 |---|---|---|
 | user | enter physiological data and goals | generate macro and calorie recommendations. |
 | user | view macro and calorie recommendations | review the information. |
-| user | view PRs | select a PR. |
+| user | view PRs | review the information. |
 | user | add a PR | input new information. |
-| user | view a PR | review the information. |
 | user | edit a PR | modify the information. |
+| user | delete a PR | remove the information. |
 | user | view workouts | select a workout. |
 | user | add a workout | input new information. |
-| user | view a workout | review the information. |
-| user | edit a workout | modify the information. |
+| user | delete a workout | remove the information. |
+| user | view a workout | review the information or add exercises. |
+| user | add an exercise | input new information. |
+| user | delete an exercise | remove the information. |
 
 ## Architecture Specification
 
