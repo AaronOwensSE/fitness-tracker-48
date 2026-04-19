@@ -8,10 +8,32 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-| Workouts |  | Setup |
+| Workouts | PRs | Setup |
 | Testing |  | Requirements Specification |
 | Deployment |  | Architecture Specification |
 | Polish |  | Macros and Calories |
+
+### Sprint 3: PRs
+
+#### Velocity: 
+
+#### Backlog
+
+| Feature | Points |
+|---|---|
+| Database Setup | 3 |
+| SQLite Logic | 3 |
+| Pages | 3 |
+| Components | 5 |
+| State and Hooks | 5 |
+| Testing | 5 |
+
+| To Do | Doing | Done |
+|---|---|---|
+| Pages | Database Setup |  |
+| Components | SQLite Logic |  |
+| State and Hooks |  |  |
+| Testing |  |  |
 
 ### Sprint 2: Macros and Calories
 
