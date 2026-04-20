@@ -62,17 +62,17 @@ const OutputsPage = (props) => {
     return (
         <View style={styles.containerView}>
             <Text>Outputs</Text>
-            <View>
-                <Text>Target Weight (pounds): {targetWeight}</Text>
-                <Text>TDEE (calories): {tdee}</Text>
+
+            <View style={styles.outputsView}>
+                <Text>Target Weight: {targetWeight} pounds</Text>
+                <Text>TDEE: {tdee} calories</Text>
                 <Text>Daily Calories: {dailyCalories}</Text>
-                <Text>Protein (grams): {proteinInGrams}</Text>
-                <Text>Protein %: {proteinPercentage}</Text>
-                <Text>Fat (grams): {fatInGrams}</Text>
-                <Text>Fat %: {fatPercentage}</Text>
-                <Text>Carbs %: {carbsPercentage}</Text>
-                <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
+                <Text>Protein: {proteinInGrams} grams ({proteinPercentage}%)</Text>
+                <Text>Fat: {fatInGrams} grams ({fatPercentage}%)</Text>
+                <Text>Carbs: {carbsPercentage}%</Text>
             </View>
+
+            <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
         </View>
     );
 };
@@ -84,12 +84,14 @@ const styles = StyleSheet.create({
     containerView: {
         flex: 1,
         backgroundColor: "white",
-        marginTop: "51px",
+        marginTop: 51,
+        marginBottom: 51,
         justifyContent: "center",
         alignItems: "center"
     },
 
     outputsView: {
-        width: "80%"
+        width: "80%",
+        alignItems: "flex-start"
     }
 });

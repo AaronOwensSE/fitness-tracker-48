@@ -66,6 +66,7 @@ const InputsPage = (props) => {
     return(
         <View style={styles.containerView}>
             <Text>Inputs</Text>
+
             <View style={styles.inputFieldsView}>
                 <LabeledTextInput
                     label="RMR (calories)" value={ String(rmr) } onChangeText={setRmr}
@@ -93,6 +94,7 @@ const InputsPage = (props) => {
                     onChangeText={setActivityLevel}
                 />
             </View>
+
             <Button title="Update" onPress={update} />
             <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
         </View>
@@ -106,12 +108,13 @@ const styles = StyleSheet.create({
     containerView: {
         flex: 1,
         backgroundColor: "white",
-        marginTop: "51px",
+        marginTop: 51,
+        marginBottom: 51,
         justifyContent: "center",
         alignItems: "center",
     },
 
     inputFieldsView: {
-        width: "80%"
+        width: "80%",
     }
 });

@@ -4,9 +4,10 @@ import { Button, StyleSheet, View } from "react-native";
 // Page
 const LandingPage = (props) => {
     return(
-        <View contentContainerStyle={styles.contentContainer}>
+        <View style={styles.containerView}>
             <Button title="Inputs" onPress={ () => { props.onNavigate("InputsPage"); } } />
             <Button title="Outputs" onPress={ () => { props.onNavigate("OutputsPage"); } } />
+            <Button title="PRs" onPress={ () => { props.onNavigate("PRsPage"); } } />
         </View>
     );
 };
@@ -18,7 +19,9 @@ const styles = StyleSheet.create({
     containerView: {
         flex: 1,
         backgroundColor: "white",
-        marginTop: "51px",
+        marginTop: 51,
+        marginBottom: 51,
         justifyContent: "center",
+        alignItems: "center"
     }
 });

@@ -5,6 +5,8 @@ import { useState } from "react";
 import LandingPage from "./pages/LandingPage.js";
 import InputsPage from "./pages/InputsPage.js";
 import OutputsPage from "./pages/OutputsPage.js";
+import PRsPage from "./pages/PRsPage.js";
+import AddPRPage from "./pages/AddPRPage.js";
 
 export default function App() {
     const [ navPage, setNavPage ] = useState("LandingPage");

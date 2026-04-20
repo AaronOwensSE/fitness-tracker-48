@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     containerView: {
         flex: 1,
         backgroundColor: "white",
-        marginTop: "51px",
+        marginTop: 51,
+        marginBottom: 51,
         justifyContent: "center",
         alignItems: "center"
     }
