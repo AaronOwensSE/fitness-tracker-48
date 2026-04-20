@@ -22,7 +22,7 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 | Feature | Points |
 |---|---|
 | Database Setup | 3 |
-| SQLite Logic | 3 |
+| Expo SQLite Logic | 3 |
 | Pages | 3 |
 | Components | 2 |
 | State and Hooks | 5 |
@@ -30,10 +30,8 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-| Pages | Database Setup |  |
-| Components | SQLite Logic |  |
-| State and Hooks |  |  |
-| Testing |  |  |
+| State and Hooks | Database Setup | Pages |
+| Testing | Expo SQLite Logic | Components |
 
 ### Sprint 2: Macros and Calories
 
@@ -44,7 +42,7 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 | Feature | Points |
 |---|---|
 | Formula Logic | 3 |
-| AsyncStorage Logic | 5 |
+| Async Storage Logic | 5 |
 | Pages | 2 |
 | Components | 3 |
 | Navigation Logic | 3 |
@@ -54,7 +52,7 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 | To Do | Doing | Done |
 |---|---|---|
 |  |  | Formula Logic |
-|  |  | AsyncStorage Logic |
+|  |  | Async Storage Logic |
 |  |  | Pages |
 |  |  | Components |
 |  |  | Navigation Logic |
@@ -124,6 +122,6 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 - JavaScript
 - React Native
-- AsyncStorage
-- SQLite
+- Async Storage
+- Expo SQLite
 - Expo
