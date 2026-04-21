@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 // Internal Dependencies
+import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
 import LabeledTextInput from "../components/LabeledTextInput.js";
 import storage from "../services/storage.js";
@@ -55,12 +56,7 @@ const InputsPage = (props) => {
     }
 
     if (errorMessage !== null) {
-        return(
-            <View style={styles.containerView}>
-                <Text>{errorMessage}</Text>
-                <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
-            </View>
-        );
+        return <ErrorMessagePage errorMessage={errorMessage} onNavigate={props.onNavigate} />;
     }
 
     return(

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 // Internal Dependencies
+import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
 import formulas from "../services/formulas.js";
 import storage from "../services/storage.js";
@@ -42,12 +43,7 @@ const OutputsPage = (props) => {
     }
 
     if (errorMessage !== null) {
-        return(
-            <View style={styles.containerView}>
-                <Text>{errorMessage}</Text>
-                <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
-            </View>
-        );
+        return <ErrorMessagePage errorMessage={errorMessage} onNavigate={props.onNavigate} />;
     }
 
     const targetWeight = formulas.targetWeight(targetBodyFatPercentage, leanMass, boneMass);
