@@ -1,4 +1,18 @@
 // API
+class DatabaseSetupError extends Error {
+    constructor(message = "") {
+        super(message);
+        this.name = "DatabaseSetupError";
+    }
+}
+
+class DataDeletionError extends Error {
+    constructor(message = "") {
+        super(message);
+        this.name = "DataDeletionError";
+    }
+}
+
 class DataRetrievalError extends Error {
     constructor(message = "") {
         super(message);
@@ -13,5 +27,5 @@ class DataStorageError extends Error {
     }
 }
 
-const errors = { DataRetrievalError, DataStorageError };
+const errors = { DatabaseSetupError, DataDeletionError, DataRetrievalError, DataStorageError };
 export default errors;
