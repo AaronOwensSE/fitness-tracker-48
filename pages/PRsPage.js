@@ -1,21 +1,87 @@
 // External Dependencies
+import { useEffect, useState } from "react";
 import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 
 // Internal Dependencies
+import ErrorMessagePage from "./ErrorMessagePage.js";
+import LoadingPage from "./LoadingPage.js";
 import PRLineItem from "../components/PRLineItem.js";
+import database from "../services/database.js";
 
 // Page
 const PRsPage = (props) => {
+    const [ prs, setPrs ] = useState([]);
+    const [ errorMessage, setErrorMessage ] = useState(null);
+    const [ loading, setLoading ] = useState(true);
+
+    useEffect( () => {
+        const load = async () => {
+            try {
+                setPrs(await database.readPRs());
+            } catch (error) {
+                setErrorMessage("Data retrieval error.");
+            }
+
+            setLoading(false);
+        };
+
+        load();
+    }, [] );
+
+    const handleChangeText = (index, text) => {
+        // We can't just set updatedPRs = prs or set updatedPRs[index].weight because everything is
+        // a reference to prs, and we don't want to modify prs directly. It must be done through
+        // setPrs.
+        const updatedPRs = [...prs];
+        updatedPRs[index] = { ...updatedPRs[index], weight: text };
+
+        setPrs(updatedPRs);
+    };
+
+    const updatePR = async (name, weight) => {
+        try {
+            await database.updatePR(name, weight);
+        } catch (error) {
+            setErrorMessage("Data storage error.");
+        }
+    };
+
+    const deletePR = async (name) => {
+        // updatedPRs equals prs with the pr having pr.name of name filtered out.
+        const updatedPRs = prs.filter(pr => pr.name !== name);
+        setPrs(updatedPRs);
+
+        try {
+            await database.deletePR(name);
+        } catch (error) {
+            setErrorMessage("Data deletion error.");
+        }
+    };
+
+    if (loading) {
+        return <LoadingPage />;
+    }
+
+    if (errorMessage !== null) {
+        return <ErrorMessagePage errorMessage={errorMessage} onNavigate={props.onNavigate} />;
+    }
+
     return(
         <View style={styles.containerView}>
             <Text>PRs</Text>
 
             <View style={styles.scrollViewWrapperView}>
                 <ScrollView>
-                    <PRLineItem name="Squat" weight={285} />
-                    <PRLineItem name="Deadlift" weight={300} />
-                    <PRLineItem name="Press" weight={142.5} />
-                    <PRLineItem name="Bench Press" weight={185} />
+                    {prs.map(
+                        (pr, index) => <PRLineItem 
+                            key={pr.name}
+                            name={pr.name}
+                            weight={pr.weight}
+                            onChangeText={(text) => handleChangeText(index, text)}
+                            onUpdate={updatePR}
+                            onDelete={deletePR}
+                        />
+                    )}
                 </ScrollView>
             </View>
 
