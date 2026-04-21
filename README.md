@@ -15,7 +15,7 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 ### Sprint 3: PRs
 
-#### Velocity: 
+#### Velocity: 21
 
 #### Backlog
 
@@ -30,8 +30,12 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-| State and Hooks | Database Setup | Pages |
-| Testing | Expo SQLite Logic | Components |
+|  |  | Pages |
+|  |  | Components |
+|  |  | Database Setup |
+|  |  | Expo SQLite Logic |
+|  |  | State and Hooks |
+|  |  | Testing |
 
 ### Sprint 2: Macros and Calories
 
