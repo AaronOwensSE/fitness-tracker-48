@@ -1,27 +1,47 @@
 // External Dependencies
+import { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 // Internal Dependencies
+import ErrorMessagePage from "./ErrorMessagePage.js";
 import LabeledTextInput from "../components/LabeledTextInput";
-
-// PR
-// name
-// weight
-// Add -> Add PR and return to PRs Page
-// Back -> PRs Page
+import database from "../services/database.js";
 
 // Page
 const AddPRPage = (props) => {
+    const [ name, setName ] = useState(null);
+    const [ weight, setWeight ] = useState(null);
+    const [ errorMessage, setErrorMessage ] = useState(null);
+
+    const addPR = async () => {
+        try {
+            await database.createPR(name, weight);
+        } catch (error) {
+            setErrorMessage("Data storage error.");
+        }
+    };
+
+    if (errorMessage !== null) {
+        return <ErrorMessagePage errorMessage={errorMessage} onNavigate={props.onNavigate} />;
+    }
+
     return(
         <View style={styles.containerView}>
             <Text>Add PR</Text>
 
             <View style={styles.inputFieldsView}>
-                <LabeledTextInput label="Name" style={styles.textInput} />
-                <LabeledTextInput label="Weight" style={styles.textInput} />
+                <LabeledTextInput label="Name" style={styles.textInput} onChangeText={setName} />
+                
+                <LabeledTextInput
+                    label="Weight" style={styles.textInput} onChangeText={setWeight}
+                />
             </View>
 
-            <Button title="Add" onPress={ () => { props.onNavigate("PRsPage"); } } />
+            <Button title="Add" onPress={ () => {
+                addPR();
+                props.onNavigate("PRsPage");
+            } } />
+
             <Button title="Back" onPress={ () => { props.onNavigate("PRsPage"); } } />
         </View>
     );
