@@ -1,19 +1,27 @@
+// =================================================================================================
 // External Dependencies
+// =================================================================================================
 import { useEffect, useState } from "react";
 import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 
+// =================================================================================================
 // Internal Dependencies
+// =================================================================================================
 import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
 import PRLineItem from "../components/PRLineItem.js";
 import database from "../services/database.js";
 
+// =================================================================================================
 // Page
+// =================================================================================================
 const PRsPage = (props) => {
+    // State =======================================================================================
     const [ prs, setPrs ] = useState([]);
     const [ errorMessage, setErrorMessage ] = useState(null);
     const [ loading, setLoading ] = useState(true);
 
+    // Hooks =======================================================================================
     useEffect( () => {
         const load = async () => {
             try {
@@ -28,6 +36,7 @@ const PRsPage = (props) => {
         load();
     }, [] );
 
+    // Handlers ====================================================================================
     const handleChangeText = (index, text) => {
         // We can't just set updatedPRs = prs or set updatedPRs[index].weight because everything is
         // a reference to prs, and we don't want to modify prs directly. It must be done through
@@ -38,7 +47,7 @@ const PRsPage = (props) => {
         setPrs(updatedPRs);
     };
 
-    const updatePR = async (name, weight) => {
+    const handleUpdatePR = async (name, weight) => {
         try {
             await database.updatePR(name, weight);
         } catch (error) {
@@ -46,7 +55,7 @@ const PRsPage = (props) => {
         }
     };
 
-    const deletePR = async (name) => {
+    const handleDeletePR = async (name) => {
         // updatedPRs equals prs with the pr having pr.name of name filtered out.
         const updatedPRs = prs.filter(pr => pr.name !== name);
         setPrs(updatedPRs);
@@ -58,6 +67,7 @@ const PRsPage = (props) => {
         }
     };
 
+    // JSX =========================================================================================
     if (loading) {
         return <LoadingPage />;
     }
@@ -78,8 +88,8 @@ const PRsPage = (props) => {
                             name={pr.name}
                             weight={pr.weight}
                             onChangeText={(text) => handleChangeText(index, text)}
-                            onUpdate={updatePR}
-                            onDelete={deletePR}
+                            onUpdate={handleUpdatePR}
+                            onDelete={handleDeletePR}
                         />
                     )}
                 </ScrollView>
@@ -88,12 +98,14 @@ const PRsPage = (props) => {
             <Button title="Add PR" onPress={ () => { props.onNavigate("AddPRPage"); } } />
             <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
         </View>
-    );
+    );  // Can we fix nav?
 };
 
 export default PRsPage;
 
+// =================================================================================================
 // Stylesheet
+// =================================================================================================
 const styles = StyleSheet.create({
     containerView: {
         flex: 1,

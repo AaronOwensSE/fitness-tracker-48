@@ -1,26 +1,36 @@
+// =================================================================================================
 // External Dependencies
+// =================================================================================================
 import { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
+// =================================================================================================
 // Internal Dependencies
+// =================================================================================================
 import ErrorMessagePage from "./ErrorMessagePage.js";
 import LabeledTextInput from "../components/LabeledTextInput";
 import database from "../services/database.js";
 
+// =================================================================================================
 // Page
+// =================================================================================================
 const AddPRPage = (props) => {
+    // State =======================================================================================
     const [ name, setName ] = useState(null);
     const [ weight, setWeight ] = useState(null);
     const [ errorMessage, setErrorMessage ] = useState(null);
 
-    const addPR = async () => {
+    // Handlers ====================================================================================
+    const handleAddPR = async () => {
         try {
             await database.createPR(name, weight);
+            props.onNavigate("PRsPage");
         } catch (error) {
             setErrorMessage("Data storage error.");
         }
     };
 
+    // JSX =========================================================================================
     if (errorMessage !== null) {
         return <ErrorMessagePage errorMessage={errorMessage} onNavigate={props.onNavigate} />;
     }
@@ -37,19 +47,17 @@ const AddPRPage = (props) => {
                 />
             </View>
 
-            <Button title="Add" onPress={ () => {
-                addPR();
-                props.onNavigate("PRsPage");
-            } } />
-
-            <Button title="Back" onPress={ () => { props.onNavigate("PRsPage"); } } />
+            <Button title="Add" onPress={handleAddPR} />
+            <Button title="Back" onPress={ () => props.onNavigate("PRsPage") } />
         </View>
-    );
+    );  // Can we do {("PRsPage") => props.onNavigate} for Back?
 };
 
 export default AddPRPage;
 
+// =================================================================================================
 // Stylesheet
+// =================================================================================================
 const styles = StyleSheet.create({
     containerView: {
         flex: 1,

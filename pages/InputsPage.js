@@ -1,15 +1,22 @@
+// =================================================================================================
 // External Dependencies
+// =================================================================================================
 import { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
+// =================================================================================================
 // Internal Dependencies
+// =================================================================================================
 import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
 import LabeledTextInput from "../components/LabeledTextInput.js";
 import storage from "../services/storage.js";
 
+// =================================================================================================
 // Page
+// =================================================================================================
 const InputsPage = (props) => {
+    // State =======================================================================================
     const [ rmr, setRmr ] = useState(null);
     const [ leanMass, setLeanMass ] = useState(null);
     const [ boneMass, setBoneMass ] = useState(null);
@@ -19,6 +26,7 @@ const InputsPage = (props) => {
     const [ errorMessage, setErrorMessage ] = useState(null);
     const [ loading, setLoading ] = useState(true);
 
+    // Hooks =======================================================================================
     useEffect( () => {
         const load = async () => {
             try {
@@ -38,7 +46,8 @@ const InputsPage = (props) => {
         load();
     }, [] );
 
-    const update = async () => {
+    // Handlers ====================================================================================
+    const handleUpdateInputs = async () => {
         try {
             await storage.setItem("rmr", Number(rmr));
             await storage.setItem("leanMass", Number(leanMass));
@@ -51,6 +60,7 @@ const InputsPage = (props) => {
         }
     };
 
+    // JSX =========================================================================================
     if (loading) {
         return <LoadingPage />;
     }
@@ -91,15 +101,17 @@ const InputsPage = (props) => {
                 />
             </View>
 
-            <Button title="Update" onPress={update} />
+            <Button title="Update" onPress={handleUpdateInputs} />
             <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
         </View>
-    );
+    );  // Can we use ("LandingPage") => props.onNavigate ?
 };
 
 export default InputsPage;
 
+// =================================================================================================
 // Stylesheet
+// =================================================================================================
 const styles = StyleSheet.create({
     containerView: {
         flex: 1,

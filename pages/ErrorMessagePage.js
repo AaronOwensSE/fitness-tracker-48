@@ -1,17 +1,26 @@
+// =================================================================================================
 // External Dependencies
+// =================================================================================================
 import { Button, StyleSheet, Text, View } from "react-native";
 
+// =================================================================================================
 // Page
+// =================================================================================================
 const ErrorMessagePage = (props) => {
-    <View style={styles.containerView}>
-        <Text>{props.errorMessage}</Text>
-        <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
-    </View>
+    // JSX =========================================================================================
+    return(
+        <View style={styles.containerView}>
+            <Text>{props.errorMessage}</Text>
+            <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
+        </View>
+    );  // Can we do onPress={("LandingPage") => props.onNavigate} ?
 };
 
 export default ErrorMessagePage;
 
+// =================================================================================================
 // Stylesheet
+// =================================================================================================
 const styles = StyleSheet.create({
     containerView: {
         flex: 1,

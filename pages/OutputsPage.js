@@ -1,15 +1,22 @@
+// =================================================================================================
 // External Dependencies
+// =================================================================================================
 import { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
+// =================================================================================================
 // Internal Dependencies
+// =================================================================================================
 import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
 import formulas from "../services/formulas.js";
 import storage from "../services/storage.js";
 
+// =================================================================================================
 // Page
+// =================================================================================================
 const OutputsPage = (props) => {
+    // State =======================================================================================
     const [ targetBodyFatPercentage, setTargetBodyFatPercentage ] = useState(null);
     const [ leanMass, setLeanMass ] = useState(null);
     const [ boneMass, setBoneMass ] = useState(null);
@@ -19,6 +26,7 @@ const OutputsPage = (props) => {
     const [ errorMessage, setErrorMessage ]  = useState(null);
     const [ loading, setLoading ] = useState(true);
 
+    // Hooks =======================================================================================
     useEffect( () => {
         const load = async () => {
             try {
@@ -38,6 +46,7 @@ const OutputsPage = (props) => {
         load();
     }, [] );
 
+    // JSX =========================================================================================
     if (loading) {
         return <LoadingPage />;
     }
@@ -70,12 +79,14 @@ const OutputsPage = (props) => {
 
             <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
         </View>
-    );
+    );  // Can we fix nav?
 };
 
 export default OutputsPage;
 
+// =================================================================================================
 // Stylesheet
+// =================================================================================================
 const styles = StyleSheet.create({
     containerView: {
         flex: 1,
