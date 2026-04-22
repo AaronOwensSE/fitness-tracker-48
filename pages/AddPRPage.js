@@ -50,7 +50,7 @@ const AddPRPage = (props) => {
             <Button title="Add" onPress={handleAddPR} />
             <Button title="Back" onPress={ () => props.onNavigate("PRsPage") } />
         </View>
-    );  // Can we do {("PRsPage") => props.onNavigate} for Back?
+    );
 };
 
 export default AddPRPage;

@@ -102,9 +102,9 @@ const InputsPage = (props) => {
             </View>
 
             <Button title="Update" onPress={handleUpdateInputs} />
-            <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
+            <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />
         </View>
-    );  // Can we use ("LandingPage") => props.onNavigate ?
+    );
 };
 
 export default InputsPage;

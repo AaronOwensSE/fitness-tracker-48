@@ -38,12 +38,10 @@ const PRsPage = (props) => {
 
     // Handlers ====================================================================================
     const handleChangeText = (index, text) => {
-        // We can't just set updatedPRs = prs or set updatedPRs[index].weight because everything is
-        // a reference to prs, and we don't want to modify prs directly. It must be done through
-        // setPrs.
+        // State is immutable. We cannot modify prs directly, so we copy both the array and the
+        // object in question so that we are not modifying a reference at any point.
         const updatedPRs = [...prs];
         updatedPRs[index] = { ...updatedPRs[index], weight: text };
-
         setPrs(updatedPRs);
     };
 
@@ -56,7 +54,7 @@ const PRsPage = (props) => {
     };
 
     const handleDeletePR = async (name) => {
-        // updatedPRs equals prs with the pr having pr.name of name filtered out.
+        // Again, state is immutable. We create a copy of prs with the deleted item absent.
         const updatedPRs = prs.filter(pr => pr.name !== name);
         setPrs(updatedPRs);
 
@@ -95,10 +93,10 @@ const PRsPage = (props) => {
                 </ScrollView>
             </View>
 
-            <Button title="Add PR" onPress={ () => { props.onNavigate("AddPRPage"); } } />
-            <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
+            <Button title="Add PR" onPress={ () => props.onNavigate("AddPRPage") } />
+            <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />
         </View>
-    );  // Can we fix nav?
+    );
 };
 
 export default PRsPage;

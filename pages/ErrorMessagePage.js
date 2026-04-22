@@ -11,9 +11,9 @@ const ErrorMessagePage = (props) => {
     return(
         <View style={styles.containerView}>
             <Text>{props.errorMessage}</Text>
-            <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
+            <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />
         </View>
-    );  // Can we do onPress={("LandingPage") => props.onNavigate} ?
+    );
 };
 
 export default ErrorMessagePage;

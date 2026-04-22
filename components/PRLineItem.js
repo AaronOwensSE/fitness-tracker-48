@@ -24,10 +24,10 @@ const PRLineItem = (props) => {
             </View>
             <View style={styles.buttonsView}>
                 <Button 
-                    title="Update" onPress={ () => { props.onUpdate(props.name, props.weight); } }
+                    title="Update" onPress={ () => props.onUpdate(props.name, props.weight) }
                 />
 
-                <Button title="Delete" onPress={ () => { props.onDelete(props.name); } } />
+                <Button title="Delete" onPress={ () => props.onDelete(props.name) } />
             </View>
         </View>
     );

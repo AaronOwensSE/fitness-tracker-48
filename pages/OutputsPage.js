@@ -77,9 +77,9 @@ const OutputsPage = (props) => {
                 <Text>Carbs: {carbsPercentage}%</Text>
             </View>
 
-            <Button title="Back" onPress={ () => { props.onNavigate("LandingPage"); } } />
+            <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />
         </View>
-    );  // Can we fix nav?
+    );
 };
 
 export default OutputsPage;
