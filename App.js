@@ -11,8 +11,12 @@ import InputsPage from "./pages/InputsPage.js";
 import OutputsPage from "./pages/OutputsPage.js";
 import PRsPage from "./pages/PRsPage.js";
 import AddPRPage from "./pages/AddPRPage.js";
-import database from "./services/database.js";
 import ErrorMessagePage from "./pages/ErrorMessagePage.js";
+import WorkoutsPage from "./pages/WorkoutsPage.js";
+import AddWorkoutPage from "./pages/AddWorkoutPage.js";
+import WorkoutPage from "./pages/WorkoutPage.js";
+import database from "./services/database.js";
+import LoadingPage from "./pages/LoadingPage.js";
 
 // =================================================================================================
 // App
@@ -20,6 +24,8 @@ import ErrorMessagePage from "./pages/ErrorMessagePage.js";
 export default function App() {
     // State =======================================================================================
     const [ navPage, setNavPage ] = useState("LandingPage");
+    const [ navData, setNavData ] = useState(null);
+    const [ loading, setLoading ] = useState(true);
     const [ errorMessage, setErrorMessage ] = useState(null);
 
     // Hooks =======================================================================================
@@ -30,26 +36,44 @@ export default function App() {
             } catch (error) {
                 setErrorMessage("Database setup error.");
             }
+
+            setLoading(false);
         };
 
         load();
     }, [] );
 
+    // Handlers ====================================================================================
+    const handleNavigate = (navPage, navData = null) => {
+        setNavPage(navPage);
+        setNavData(navData);
+    };
+
     // JSX =========================================================================================
+    if (loading) {
+        return <LoadingPage />;
+    }
+
     if (errorMessage !== null) {
-        return <ErrorMessagePage errorMessage={errorMessage} onNavigate={setNavPage} />;
+        return <ErrorMessagePage errorMessage={errorMessage} onNavigate={handleNavigate} />;
     }
 
     switch (navPage) {
         case "LandingPage":
-            return <LandingPage onNavigate={setNavPage} />;
+            return <LandingPage onNavigate={handleNavigate} />;
         case "InputsPage":
-            return <InputsPage onNavigate={setNavPage} />;
+            return <InputsPage onNavigate={handleNavigate} />;
         case "OutputsPage":
-            return <OutputsPage onNavigate={setNavPage} />;
+            return <OutputsPage onNavigate={handleNavigate} />;
         case "PRsPage":
-            return <PRsPage onNavigate={setNavPage} />;
+            return <PRsPage onNavigate={handleNavigate} />;
         case "AddPRPage":
-            return <AddPRPage onNavigate={setNavPage} />;
+            return <AddPRPage onNavigate={handleNavigate} />;
+        case "WorkoutsPage":
+            return <WorkoutsPage onNavigate={handleNavigate} />;
+        case "AddWorkoutPage":
+            return <AddWorkoutPage onNavigate={handleNavigate} />;
+        case "WorkoutPage":
+            return <WorkoutPage onNavigate={handleNavigate} workoutId={navData} />;
     }
 }

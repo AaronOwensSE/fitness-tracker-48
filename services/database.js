@@ -23,9 +23,28 @@ async function buildSchema() {
 
     try {
         await db.execAsync(`
+            PRAGMA foreign_keys = ON;
+
             CREATE TABLE IF NOT EXISTS prs (
                 name VARCHAR(30) PRIMARY KEY,
                 weight INTEGER
+            );
+
+            CREATE TABLE IF NOT EXISTS workouts (
+                id INTEGER PRIMARY KEY,
+                name VARCHAR(30)
+            );
+
+            CREATE TABLE IF NOT EXISTS exercises (
+                id INTEGER PRIMARY KEY,
+                name VARCHAR(30),
+                weight INTEGER,
+                sets INTEGER,
+                reps INTEGER,
+                workout INTEGER,
+                FOREIGN KEY (workout)
+                    REFERENCES workouts(id)
+                    ON DELETE CASCADE
             );
         `);
     } catch (error) {
@@ -48,7 +67,7 @@ async function readPRs() {
     let result;
 
     try {
-        result = await db.getAllAsync("SELECT * FROM prs;");
+        result = await db.getAllAsync("SELECT * FROM prs ORDER BY name;");
     } catch (error) {
         throw new errors.DataRetrievalError();
     }
@@ -76,5 +95,69 @@ async function deletePR(name) {
     }
 }
 
-const database = { buildSchema, createPR, readPRs, updatePR, deletePR };
+async function createWorkout(name) {
+    const db = await dbPromise;
+    let result;
+    
+    try {
+        result = await db.getFirstAsync(
+            "INSERT INTO workouts (name) VALUES (?) RETURNING id;", [name]
+        );
+    } catch (error) {
+        throw new errors.DataStorageError();
+    }
+
+    const id = result.id;
+
+    return id;
+}
+
+async function readWorkouts() {
+    const db = await dbPromise;
+    let result;
+
+    try {
+        result = await db.getAllAsync("SELECT * FROM workouts ORDER BY id;");
+    } catch (error) {
+        throw new errors.DataRetrievalError();
+    }
+
+    return result;
+}
+
+async function readWorkout(id) {
+    const db = await dbPromise;
+    let result;
+
+    try {
+        result = await db.getFirstAsync("SELECT * FROM workouts WHERE id = ?;", [id]);
+    } catch (error) {
+        throw new errors.DataRetrievalError();
+    }
+
+    return result;
+}
+
+async function deleteWorkout(id) {
+    const db = await dbPromise;
+
+    try {
+        await db.runAsync("DELETE FROM workouts WHERE id = ?;", [id]);
+    } catch (error) {
+        throw new errors.DataDeletionError();
+    }
+}
+
+const database = {
+    buildSchema,
+    createPR,
+    readPRs,
+    updatePR,
+    deletePR,
+    createWorkout,
+    readWorkouts,
+    readWorkout,
+    deleteWorkout
+};
+
 export default database;

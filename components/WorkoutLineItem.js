@@ -4,21 +4,27 @@
 import { Button, StyleSheet, View } from "react-native";
 
 // =================================================================================================
-// Page
+// Component
 // =================================================================================================
-const LandingPage = (props) => {
+const WorkoutLineItem = (props) => {
     // JSX =========================================================================================
     return(
-        <View style={styles.containerView}>
-            <Button title="Inputs" onPress={ () => props.onNavigate("InputsPage") } />
-            <Button title="Outputs" onPress={ () => props.onNavigate("OutputsPage") } />
-            <Button title="PRs" onPress={ () => props.onNavigate("PRsPage") } />
-            <Button title="Workouts" onPress={ () => props.onNavigate("WorkoutsPage") } />
+        <View style={styles.containerView} >
+            <View style={styles.workoutLinkView}>
+                <Button
+                    title={props.name}
+                    onPress={ () => props.onNavigate("WorkoutPage", props.id) }
+                />
+            </View>
+
+            <View style={styles.buttonView}>
+                <Button title="Delete" onPress={ () => props.onDelete(props.id) } />
+            </View>
         </View>
     );
 };
 
-export default LandingPage;
+export default WorkoutLineItem;
 
 // =================================================================================================
 // Stylesheet
@@ -26,10 +32,16 @@ export default LandingPage;
 const styles = StyleSheet.create({
     containerView: {
         flex: 1,
-        backgroundColor: "white",
-        marginTop: 51,
-        marginBottom: 51,
-        justifyContent: "center",
-        alignItems: "center"
+        flexDirection: "row"
+    },
+
+    workoutLinkView: {
+        flex: 1,
+        alignItems: "flex-start"
+    },
+
+    buttonView: {
+        flex: 1,
+        alignItems: "flex-end"
     }
 });
