@@ -22,6 +22,7 @@ const PRLineItem = (props) => {
                     onChangeText={props.onChangeText}
                 />
             </View>
+            
             <View style={styles.buttonsView}>
                 <Button 
                     title="Update" onPress={ () => props.onUpdate(props.name, props.weight) }
@@ -41,13 +42,13 @@ export default PRLineItem;
 const styles = StyleSheet.create({
     containerView: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: "row"
     },
 
     dataView: {
         flex: 1,
         flexDirection: "column",
-        alignItems: "flex-start",
+        alignItems: "flex-start"
     },
 
     buttonsView: {

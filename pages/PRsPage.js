@@ -17,7 +17,7 @@ import database from "../services/database.js";
 // =================================================================================================
 const PRsPage = (props) => {
     // State =======================================================================================
-    const [ prs, setPrs ] = useState([]);
+    const [ prs, setPRs ] = useState([]);
     const [ errorMessage, setErrorMessage ] = useState(null);
     const [ loading, setLoading ] = useState(true);
 
@@ -25,7 +25,7 @@ const PRsPage = (props) => {
     useEffect( () => {
         const load = async () => {
             try {
-                setPrs(await database.readPRs());
+                setPRs(await database.readPRs());
             } catch (error) {
                 setErrorMessage("Data retrieval error.");
             }
@@ -42,7 +42,7 @@ const PRsPage = (props) => {
         // object in question so that we are not modifying a reference at any point.
         const updatedPRs = [...prs];
         updatedPRs[index] = { ...updatedPRs[index], weight: text };
-        setPrs(updatedPRs);
+        setPRs(updatedPRs);
     };
 
     const handleUpdatePR = async (name, weight) => {
@@ -56,7 +56,7 @@ const PRsPage = (props) => {
     const handleDeletePR = async (name) => {
         // Again, state is immutable. We create a copy of prs with the deleted item absent.
         const updatedPRs = prs.filter(pr => pr.name !== name);
-        setPrs(updatedPRs);
+        setPRs(updatedPRs);
 
         try {
             await database.deletePR(name);
