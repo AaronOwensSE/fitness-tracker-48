@@ -7,28 +7,32 @@ import { Button, StyleSheet, Text, View } from "react-native";
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
-import ErrorMessagePage from "./ErrorMessagePage.js";
+import ErrorMessagePage from "./ErrorMessagePage";
 import LabeledTextInput from "../components/LabeledTextInput";
 import database from "../services/database.js";
 
 // =================================================================================================
 // Page
 // =================================================================================================
-const AddPRPage = (props) => {
+const AddExercisePage = (props) => {
     // State =======================================================================================
     const [ name, setName ] = useState(null);
     const [ weight, setWeight ] = useState(null);
+    const [ sets, setSets ] = useState(null);
+    const [ reps, setReps ] = useState(null);
     const [ errorMessage, setErrorMessage ] = useState(null);
 
     // Handlers ====================================================================================
-    const handleAddPR = async () => {
+    const handleAddExercise = async () => {
         try {
-            await database.createPR(name, weight);
+            await database.createExercise(
+                name, Number(weight), Number(sets), Number(reps), props.workoutId
+            );
         } catch (error) {
             setErrorMessage("Data storage error.");
         }
 
-        props.onNavigate("PRsPage");
+        props.onNavigate("WorkoutPage", props.workoutId);
     };
 
     // JSX =========================================================================================
@@ -37,24 +41,26 @@ const AddPRPage = (props) => {
     }
 
     return(
-        <View style={styles.containerView}>
-            <Text>Add PR</Text>
+        <View style={styles.containerView} >
+            <Text>Add Exercise</Text>
 
-            <View style={styles.inputFieldsView}>
+            <View style={styles.inputFieldsView} >
                 <LabeledTextInput label="Name" onChangeText={setName} />
-                
-                <LabeledTextInput
-                    label="Weight" onChangeText={setWeight}
-                />
+                <LabeledTextInput label="Weight" onChangeText={setWeight} />
+                <LabeledTextInput label="Sets" onChangeText={setSets} />
+                <LabeledTextInput label="Reps" onChangeText={setReps} />
             </View>
 
-            <Button title="Add" onPress={handleAddPR} />
-            <Button title="Back" onPress={ () => props.onNavigate("PRsPage") } />
+            <Button title="Add" onPress={handleAddExercise} />
+
+            <Button
+                title="Back" onPress={ () => props.onNavigate("WorkoutPage", props.workoutId) }
+            />
         </View>
     );
 };
 
-export default AddPRPage;
+export default AddExercisePage;
 
 // =================================================================================================
 // Stylesheet

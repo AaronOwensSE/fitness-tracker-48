@@ -6,17 +6,18 @@ import { useEffect, useState } from "react";
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
+import LoadingPage from "./pages/LoadingPage.js";
+import ErrorMessagePage from "./pages/ErrorMessagePage.js";
 import LandingPage from "./pages/LandingPage.js";
 import InputsPage from "./pages/InputsPage.js";
 import OutputsPage from "./pages/OutputsPage.js";
 import PRsPage from "./pages/PRsPage.js";
 import AddPRPage from "./pages/AddPRPage.js";
-import ErrorMessagePage from "./pages/ErrorMessagePage.js";
 import WorkoutsPage from "./pages/WorkoutsPage.js";
 import AddWorkoutPage from "./pages/AddWorkoutPage.js";
 import WorkoutPage from "./pages/WorkoutPage.js";
+import AddExercisePage from "./pages/AddExercisePage.js";
 import database from "./services/database.js";
-import LoadingPage from "./pages/LoadingPage.js";
 
 // =================================================================================================
 // App
@@ -75,5 +76,7 @@ export default function App() {
             return <AddWorkoutPage onNavigate={handleNavigate} />;
         case "WorkoutPage":
             return <WorkoutPage onNavigate={handleNavigate} workoutId={navData} />;
+        case "AddExercisePage":
+            return <AddExercisePage onNavigate={handleNavigate} workoutId={navData} />;
     }
 }

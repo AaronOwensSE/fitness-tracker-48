@@ -117,7 +117,7 @@ async function readWorkouts() {
     let result;
 
     try {
-        result = await db.getAllAsync("SELECT * FROM workouts ORDER BY id;");
+        result = await db.getAllAsync("SELECT * FROM workouts ORDER BY id DESC;");
     } catch (error) {
         throw new errors.DataRetrievalError();
     }
@@ -148,6 +148,51 @@ async function deleteWorkout(id) {
     }
 }
 
+async function createExercise(name, weight, sets, reps, workout) {
+    const db = await dbPromise;
+    let result;
+
+    try {
+        result = await db.getFirstAsync(
+            `INSERT INTO exercises (name, weight, sets, reps, workout)
+            VALUES (?, ?, ?, ?, ?)
+            RETURNING id;`,
+            [ name, weight, sets, reps, workout ]
+        );
+    } catch (error) {
+        throw new errors.DataStorageError();
+    }
+
+    const id = result.id;
+    
+    return id;
+}
+
+async function readExercisesByWorkoutId(workoutId) {
+    const db = await dbPromise;
+    let result;
+
+    try {
+        result = await db.getAllAsync(
+            "SELECT * FROM exercises WHERE workout = ? ORDER BY id;", [workoutId]
+        );
+    } catch (error) {
+        throw new errors.DataRetrievalError();
+    }
+
+    return result;
+}
+
+async function deleteExercise(exerciseId) {
+    const db = await dbPromise;
+
+    try {
+        await db.runAsync("DELETE FROM exercises WHERE id = ?;", [exerciseId]);
+    } catch (error) {
+        throw new errors.DataDeletionError();
+    }
+}
+
 const database = {
     buildSchema,
     createPR,
@@ -157,7 +202,10 @@ const database = {
     createWorkout,
     readWorkouts,
     readWorkout,
-    deleteWorkout
+    deleteWorkout,
+    createExercise,
+    readExercisesByWorkoutId,
+    deleteExercise
 };
 
 export default database;

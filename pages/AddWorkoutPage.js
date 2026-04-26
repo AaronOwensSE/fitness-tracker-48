@@ -39,7 +39,7 @@ const AddWorkoutPage = (props) => {
             <Text>Add Workout</Text>
 
             <View style={styles.inputFieldsView}>
-                <LabeledTextInput label="Name" style={styles.textInput} onChangeText={setName} />
+                <LabeledTextInput label="Name" onChangeText={setName} />
             </View>
             
             <Button title="Add" onPress={handleAddWorkout} />

@@ -9,6 +9,7 @@ import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 // =================================================================================================
 import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
+import ExerciseLineItem from "../components/ExerciseLineItem.js";
 import database from "../services/database.js";
 
 // =================================================================================================
@@ -16,7 +17,7 @@ import database from "../services/database.js";
 // =================================================================================================
 const WorkoutPage = (props) => {
     // State =======================================================================================
-    const [ workout, setWorkout ] = useState([]);
+    const [ workout, setWorkout ] = useState({});
     const [ exercises, setExercises ] = useState([]);
     const [ loading, setLoading ] = useState(true);
     const [ errorMessage, setErrorMessage ] = useState(null);
@@ -26,7 +27,7 @@ const WorkoutPage = (props) => {
         const load = async () => {
             try {
                 setWorkout(await database.readWorkout(props.workoutId));
-                //setExercises(await database.readExercises(props.workoutId));
+                setExercises(await database.readExercisesByWorkoutId(props.workoutId));
             } catch (error) {
                 setErrorMessage("Data retrieval error.");
             }
@@ -38,7 +39,15 @@ const WorkoutPage = (props) => {
     }, [] );
 
     // Handlers ====================================================================================
-    const handleAddExercise = async () => {
+    const handleDeleteExercise = async (id) => {
+        const updatedExercises = exercises.filter(exercise => exercise.id !== id);
+        setExercises(updatedExercises);
+
+        try {
+            await database.deleteExercise(id);
+        } catch (error) {
+            setErrorMessage("Data deletion error.");
+        }
     };
 
     // JSX =========================================================================================
@@ -59,16 +68,22 @@ const WorkoutPage = (props) => {
                     {exercises.map(
                         (exercise) => <ExerciseLineItem
                             key={exercise.id}
+                            id={exercise.id}
                             name={exercise.name}
                             weight={exercise.weight}
                             sets={exercise.sets}
                             reps={exercise.reps}
+                            onDelete={handleDeleteExercise}
                         />
                     )}
                 </ScrollView>
             </View>
 
-            <Button title="Add Exercise" onPress={handleAddExercise} />
+            <Button
+                title="Add Exercise"
+                onPress={ () => props.onNavigate("AddExercisePage", workout.id) }
+            />
+
             <Button title="Back" onPress={ () => props.onNavigate("WorkoutsPage") } />
         </View>
     );
