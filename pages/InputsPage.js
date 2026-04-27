@@ -17,11 +17,12 @@ import storage from "../services/storage.js";
 // =================================================================================================
 const InputsPage = (props) => {
     // State =======================================================================================
-    const [ rmr, setRmr ] = useState(null);
+    const [ bodyWeight, setBodyWeight ] = useState(null);
+    const [ restingMetabolicRate, setRestingMetabolicRate ] = useState(null);
     const [ leanMass, setLeanMass ] = useState(null);
     const [ boneMass, setBoneMass ] = useState(null);
+    const [ targetLeanMass, setTargetLeanMass ] = useState(null);
     const [ targetBodyFatPercentage, setTargetBodyFatPercentage ] = useState(null);
-    const [ plan, setPlan ] = useState(null);
     const [ activityLevel, setActivityLevel ] = useState(null);
     const [ errorMessage, setErrorMessage ] = useState(null);
     const [ loading, setLoading ] = useState(true);
@@ -30,11 +31,12 @@ const InputsPage = (props) => {
     useEffect( () => {
         const load = async () => {
             try {
-                setRmr(await storage.getItem("rmr"));
+                setBodyWeight(await storage.getItem("bodyWeight"));
+                setRestingMetabolicRate(await storage.getItem("restingMetabolicRate"));
                 setLeanMass(await storage.getItem("leanMass"));
                 setBoneMass(await storage.getItem("boneMass"));
+                setTargetLeanMass(await storage.getItem("targetLeanMass"));
                 setTargetBodyFatPercentage(await storage.getItem("targetBodyFatPercentage"));
-                setPlan(await storage.getItem("plan"));
                 setActivityLevel(await storage.getItem("activityLevel"));
             } catch (error) {
                 setErrorMessage("Data retrieval error.");
@@ -49,12 +51,15 @@ const InputsPage = (props) => {
     // Handlers ====================================================================================
     const handleUpdateInputs = async () => {
         try {
-            await storage.setItem("rmr", Number(rmr));
+            await storage.setItem("bodyWeight", Number(bodyWeight));
+            await storage.setItem("restingMetabolicRate", Number(restingMetabolicRate));
             await storage.setItem("leanMass", Number(leanMass));
             await storage.setItem("boneMass", Number(boneMass));
+            await storage.setItem("targetLeanMass", Number(targetLeanMass));
             await storage.setItem("targetBodyFatPercentage", Number(targetBodyFatPercentage));
-            await storage.setItem("plan", plan);
             await storage.setItem("activityLevel", Number(activityLevel));
+
+            props.onNavigate("LandingPage");
         } catch (error) {
             setErrorMessage("Data storage error.");
         }
@@ -75,15 +80,29 @@ const InputsPage = (props) => {
 
             <View style={styles.inputFieldsView}>
                 <LabeledTextInput
-                    label="RMR (calories)" value={ String(rmr) } onChangeText={setRmr}
+                    label="Body Weight (Pounds)"
+                    value={ String(bodyWeight) }
+                    onChangeText={setBodyWeight}
                 />
 
                 <LabeledTextInput
-                    label="Lean Mass (pounds)" value={ String(leanMass) } onChangeText={setLeanMass}
+                    label="Resting Metabolic Rate (Calories)"
+                    value={ String(restingMetabolicRate) }
+                    onChangeText={setRestingMetabolicRate}
                 />
 
                 <LabeledTextInput
-                    label="Bone Mass (pounds)" value={ String(boneMass) } onChangeText={setBoneMass}
+                    label="Lean Mass (Pounds)" value={ String(leanMass) } onChangeText={setLeanMass}
+                />
+
+                <LabeledTextInput
+                    label="Bone Mass (Pounds)" value={ String(boneMass) } onChangeText={setBoneMass}
+                />
+
+                <LabeledTextInput
+                    label="Target Lean Mass (Pounds)"
+                    value={ String(targetLeanMass) }
+                    onChangeText={setTargetLeanMass}
                 />
 
                 <LabeledTextInput
@@ -92,10 +111,8 @@ const InputsPage = (props) => {
                     onChangeText={setTargetBodyFatPercentage}
                 />
 
-                <LabeledTextInput label="Plan" value={plan} onChangeText={setPlan} />
-
                 <LabeledTextInput
-                    label="Activity Level"
+                    label="Activity Level (~1.2 to 1.8)"
                     value={ String(activityLevel) }
                     onChangeText={setActivityLevel}
                 />

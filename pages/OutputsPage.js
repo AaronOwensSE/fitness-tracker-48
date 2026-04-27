@@ -17,12 +17,13 @@ import storage from "../services/storage.js";
 // =================================================================================================
 const OutputsPage = (props) => {
     // State =======================================================================================
+    const [ bodyWeight, setBodyWeight ] = useState(null);
+    const [ targetLeanMass, setTargetLeanMass ] = useState(null);
     const [ targetBodyFatPercentage, setTargetBodyFatPercentage ] = useState(null);
     const [ leanMass, setLeanMass ] = useState(null);
     const [ boneMass, setBoneMass ] = useState(null);
-    const [ rmr, setRmr ] = useState(null);
+    const [ restingMetabolicRate, setRestingMetabolicRate ] = useState(null);
     const [ activityLevel, setActivityLevel ] = useState(null);
-    const [ plan, setPlan ] = useState(null);
     const [ errorMessage, setErrorMessage ]  = useState(null);
     const [ loading, setLoading ] = useState(true);
 
@@ -30,12 +31,13 @@ const OutputsPage = (props) => {
     useEffect( () => {
         const load = async () => {
             try {
+                setBodyWeight(await storage.getItem("bodyWeight"));
+                setTargetLeanMass(await storage.getItem("targetLeanMass"));
                 setTargetBodyFatPercentage(await storage.getItem("targetBodyFatPercentage"));
                 setLeanMass(await storage.getItem("leanMass"));
                 setBoneMass(await storage.getItem("boneMass"));
-                setRmr(await storage.getItem("rmr"));
+                setRestingMetabolicRate(await storage.getItem("restingMetabolicRate"));
                 setActivityLevel(await storage.getItem("activityLevel"));
-                setPlan(await storage.getItem("plan"));
             } catch (error) {
                 setErrorMessage("Data retrieval error.");
             }
@@ -55,14 +57,34 @@ const OutputsPage = (props) => {
         return <ErrorMessagePage errorMessage={errorMessage} onNavigate={props.onNavigate} />;
     }
 
-    const targetWeight = formulas.targetWeight(targetBodyFatPercentage, leanMass, boneMass);
-    const tdee = formulas.tdee(rmr, activityLevel);
-    const dailyCalories = formulas.dailyCalories(plan, tdee);
+    const targetWeight = formulas.targetWeight(targetBodyFatPercentage, targetLeanMass, boneMass);
+
+    const totalDailyEnergyExpenditure =
+        formulas.totalDailyEnergyExpenditure(restingMetabolicRate, activityLevel);
+    const dailyCutCalories = formulas.dailyCaloriesForCut(bodyWeight, totalDailyEnergyExpenditure);
+    const dailyBulkCalories =
+        formulas.dailyCaloriesForBulk(bodyWeight, totalDailyEnergyExpenditure);
+
     const proteinInGrams = formulas.proteinInGrams(leanMass);
-    const proteinPercentage = formulas.proteinPercentage(proteinInGrams, dailyCalories);
+    const proteinPercentageForCut = formulas.proteinPercentage(proteinInGrams, dailyCutCalories);
+    const proteinPercentageForMaintenance =
+        formulas.proteinPercentage(proteinInGrams, totalDailyEnergyExpenditure);
+    const proteinPercentageForBulk = formulas.proteinPercentage(proteinInGrams, dailyBulkCalories);
+
     const fatInGrams = formulas.fatInGrams(targetWeight);
-    const fatPercentage = formulas.fatPercentage(fatInGrams, dailyCalories);
-    const carbsPercentage = formulas.carbsPercentage(proteinPercentage, fatPercentage);
+    const fatPercentageForCut = formulas.fatPercentage(fatInGrams, dailyCutCalories);
+    const fatPercentageForMaintenance =
+        formulas.fatPercentage(fatInGrams, totalDailyEnergyExpenditure);
+    const fatPercentageForBulk = formulas.fatPercentage(fatInGrams, dailyBulkCalories);
+
+    const carbsPercentageForCut =
+        formulas.carbsPercentage(proteinPercentageForCut, fatPercentageForCut);
+    const carbsPercentageForMaintenance =
+        formulas.carbsPercentage(
+            proteinPercentageForMaintenance, fatPercentageForMaintenance
+        );
+    const carbsPercentageForBulk =
+        formulas.carbsPercentage(proteinPercentageForBulk, fatPercentageForBulk);
 
     return (
         <View style={styles.containerView}>
@@ -70,11 +92,25 @@ const OutputsPage = (props) => {
 
             <View style={styles.outputsView}>
                 <Text>Target Weight: {targetWeight} pounds</Text>
-                <Text>TDEE: {tdee} calories</Text>
-                <Text>Daily Calories: {dailyCalories}</Text>
-                <Text>Protein: {proteinInGrams} grams ({proteinPercentage}%)</Text>
-                <Text>Fat: {fatInGrams} grams ({fatPercentage}%)</Text>
-                <Text>Carbs: {carbsPercentage}%</Text>
+                <Text>Total Daily Energy Expenditure: {totalDailyEnergyExpenditure} calories</Text>
+
+                <Text>Cut</Text>
+                <Text>Daily Calories: {dailyCutCalories}</Text>
+                <Text>Protein: {proteinInGrams} grams ({proteinPercentageForCut}%)</Text>
+                <Text>Fat: {fatInGrams} grams ({fatPercentageForCut}%)</Text>
+                <Text>Carbs: {carbsPercentageForCut}%</Text>
+
+                <Text>Maintain</Text>
+                <Text>Daily Calories: {totalDailyEnergyExpenditure}</Text>
+                <Text>Protein: {proteinInGrams} grams ({proteinPercentageForMaintenance}%)</Text>
+                <Text>Fat: {fatInGrams} grams ({fatPercentageForMaintenance}%)</Text>
+                <Text>Carbs: {carbsPercentageForMaintenance}%</Text>
+
+                <Text>Bulk</Text>
+                <Text>Daily Calories: {dailyBulkCalories}</Text>
+                <Text>Protein: {proteinInGrams} grams ({proteinPercentageForBulk}%)</Text>
+                <Text>Fat: {fatInGrams} grams ({fatPercentageForBulk}%)</Text>
+                <Text>Carbs: {carbsPercentageForBulk}%</Text>
             </View>
 
             <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />

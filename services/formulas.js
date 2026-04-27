@@ -6,8 +6,8 @@ import constants from "../constants";
 // =================================================================================================
 // API
 // =================================================================================================
-function targetWeight(targetBodyFatPercentage, leanMass, boneMass) {
-    const nonfatMass = leanMass + boneMass;
+function targetWeight(targetBodyFatPercentage, targetLeanMass, boneMass) {
+    const nonfatMass = targetLeanMass + boneMass;
     const nonfatMassFactor = 1 - targetBodyFatPercentage / 100;
     const targetWeight = nonfatMass / nonfatMassFactor;
     const roundedTargetWeight = Math.round(targetWeight);
@@ -15,27 +15,45 @@ function targetWeight(targetBodyFatPercentage, leanMass, boneMass) {
     return roundedTargetWeight;
 }
 
-function tdee(rmr, activityLevel) {
-    const tdee = rmr * activityLevel;
-    const roundedTdee = Math.round(tdee);
+function totalDailyEnergyExpenditure(restingMetabolicRate, activityLevel) {
+    const totalDailyEnergyExpenditure = restingMetabolicRate * activityLevel;
+    const roundedTotalDailyEnergyExpenditure = Math.round(totalDailyEnergyExpenditure);
 
-    return roundedTdee;
+    return roundedTotalDailyEnergyExpenditure;
 }
 
-function dailyCalories(plan, tdee) {
-    let dailyCalorieModifier = 0;
+function dailyCaloriesForCut(bodyWeight, totalDailyEnergyExpenditure) {
+    const dailyCaloriesModifier =
+        bodyWeight
+        * constants.DAILY_BODY_WEIGHT_CUT_PERCENTAGE
+        * constants.CALORIES_PER_POUND_OF_FAT;
+    
+    const dailyCaloriesForCut = totalDailyEnergyExpenditure - dailyCaloriesModifier;
+    const roundedDailyCaloriesForCut = Math.round(dailyCaloriesForCut);
 
-    if (plan === "cut") {
-        dailyCalorieModifier = 0 - constants.DAILY_CALORIE_SURPLUS_OR_DEFICIT;
-    } else if (plan === "bulk") {
-        dailyCalorieModifier = constants.DAILY_CALORIE_SURPLUS_OR_DEFICIT;
-    }
+    return roundedDailyCaloriesForCut;
+}
 
-    const dailyCalories = tdee + dailyCalorieModifier;
+function dailyCaloriesForBulk(bodyWeight, totalDailyEnergyExpenditure) {
+    const dailyCaloriesModifier =
+        bodyWeight
+        * constants.DAILY_BODY_WEIGHT_BULK_PERCENTAGE
+        * constants.CALORIES_PER_POUND_OF_FAT;
+    
+    const dailyCaloriesForBulk = totalDailyEnergyExpenditure + dailyCaloriesModifier;
+    const roundedDailyCaloriesForBulk = Math.round(dailyCaloriesForBulk);
+
+    return roundedDailyCaloriesForBulk;
+}
+
+// Let plan = -1 for cut, 0 for maintain, or 1 for bulk.
+/*function dailyCalories(plan, totalDailyEnergyExpenditure) {
+    const dailyCalorieModifier = plan * constants.DAILY_CALORIE_SURPLUS_OR_DEFICIT;
+    const dailyCalories = totalDailyEnergyExpenditure + dailyCalorieModifier;
     const roundedDailyCalories = Math.round(dailyCalories);
     
     return roundedDailyCalories;
-}
+}*/
 
 function proteinInGrams(leanMass) {
     const proteinInGrams = leanMass * constants.GRAMS_OF_PROTEIN_PER_POUND_OF_LEAN_MASS;
@@ -76,8 +94,10 @@ function carbsPercentage(proteinPercentage, fatPercentage) {
 
 const formulas = {
     targetWeight,
-    tdee,
-    dailyCalories,
+    totalDailyEnergyExpenditure,
+    //dailyCalories,
+    dailyCaloriesForCut,
+    dailyCaloriesForBulk,
     proteinInGrams,
     proteinPercentage,
     fatInGrams,
