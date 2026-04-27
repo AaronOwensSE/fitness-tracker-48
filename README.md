@@ -33,9 +33,10 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-| Add 3 Colors | Trim Input/Output Scope |  |
-| Fit ScrollViews | Clarify Naming |  |
-| Standardize Element Sizes | Add Headings |  |
+|  | Add Headings | Trim Input/Output Scope |
+|  | Add 3 Colors | Clarify Naming |
+|  | Fit ScrollViews |  |
+|  | Standardize Element Sizes |  |
 
 ### Sprint 5: Exercises
 
