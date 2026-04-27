@@ -46,15 +46,6 @@ function dailyCaloriesForBulk(bodyWeight, totalDailyEnergyExpenditure) {
     return roundedDailyCaloriesForBulk;
 }
 
-// Let plan = -1 for cut, 0 for maintain, or 1 for bulk.
-/*function dailyCalories(plan, totalDailyEnergyExpenditure) {
-    const dailyCalorieModifier = plan * constants.DAILY_CALORIE_SURPLUS_OR_DEFICIT;
-    const dailyCalories = totalDailyEnergyExpenditure + dailyCalorieModifier;
-    const roundedDailyCalories = Math.round(dailyCalories);
-    
-    return roundedDailyCalories;
-}*/
-
 function proteinInGrams(leanMass) {
     const proteinInGrams = leanMass * constants.GRAMS_OF_PROTEIN_PER_POUND_OF_LEAN_MASS;
     const roundedProteinInGrams = Math.round(proteinInGrams);
@@ -95,7 +86,6 @@ function carbsPercentage(proteinPercentage, fatPercentage) {
 const formulas = {
     targetWeight,
     totalDailyEnergyExpenditure,
-    //dailyCalories,
     dailyCaloriesForCut,
     dailyCaloriesForBulk,
     proteinInGrams,
