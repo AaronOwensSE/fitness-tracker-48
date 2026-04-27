@@ -8,13 +8,34 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-| Deployment |  | Setup |
+| Deployment | Polish | Setup |
 | Documentation |  | Requirements Specification |
-| Polish |  | Architecture Specification |
+|  |  | Architecture Specification |
 |  |  | Macros and Calories |
 |  |  | PRs |
 |  |  | Workouts |
 |  |  | Exercises |
+
+### Sprint 6: Polish
+
+#### Velocity: 
+
+#### Backlog
+
+| Feature | Points |
+|---|---|
+| Trim Input/Output Scope | 5 |
+| Clarify Naming | 3 |
+| Add Headings | 3 |
+| Add 3 Colors | 3 |
+| Fit ScrollViews | 3 |
+| Standardize Element Sizes | 5 |
+
+| To Do | Doing | Done |
+|---|---|---|
+| Add 3 Colors | Trim Input/Output Scope |  |
+| Fit ScrollViews | Clarify Naming |  |
+| Standardize Element Sizes | Add Headings |  |
 
 ### Sprint 5: Exercises
 
