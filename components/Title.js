@@ -1,32 +1,21 @@
 // =================================================================================================
 // External Dependencies
 // =================================================================================================
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
 import styles from "../styles.js";
-import Title from "../components/Title.js";
 
 // =================================================================================================
-// Page
+// Component
 // =================================================================================================
-const LoadingPage = () => {
+const Title = (props) => {
     // JSX =========================================================================================
-    return (
-        <View style={styles.screen}>
-            <View style={styles.contentContainer} >
-                <View style={styles.head} >
-                    <Title />
-                </View>
-
-                <View style={styles.body} >
-                    <Text style={styles.text} >Loading . . .</Text>
-                </View>
-            </View>
-        </View>
+    return(
+        <Text style={[ props.style, styles.h1 ]} >Fitness Tracker 48</Text>
     );
 };
 
-export default LoadingPage;
+export default Title;

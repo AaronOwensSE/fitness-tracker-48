@@ -1,7 +1,7 @@
 // =================================================================================================
 // External Dependencies
 // =================================================================================================
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
@@ -11,34 +11,35 @@ import styles from "../styles.js";
 // =================================================================================================
 // Component
 // =================================================================================================
-const LabeledTextInput = (props) => {
+const OutputLineItem = (props) => {
     // JSX =========================================================================================
-    return (
-        <View style={[ props.style, componentStyles.container ]} >
-            <Text style={styles.text}>{props.label}</Text>
-            
-            <TextInput
-                style={componentStyles.textInput}
-                value={props.value}
-                onChangeText={props.onChangeText}
-            />
+    return(
+        <View style={[ props.style, componentStyles.container ]}>
+            <View style={componentStyles.column}>
+                <Text style={styles.text}>{props.name}</Text>
+            </View>
+
+            <View style={componentStyles.column}>
+                <Text style={styles.text}>{props.data}</Text>
+            </View>
         </View>
     );
 };
 
-export default LabeledTextInput;
+export default OutputLineItem;
 
 // =================================================================================================
 // Stylesheet
 // =================================================================================================
 const componentStyles = StyleSheet.create({
     container: {
-        margin: 5,
-        width: "100%"
+        flexDirection: "row"
     },
 
-    textInput: {
-        backgroundColor: "beige",
-        color: "darkblue"
+    column: {
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "flex-start",
+        justifyContent: "center"
     }
 });

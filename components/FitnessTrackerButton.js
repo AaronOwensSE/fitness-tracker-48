@@ -1,7 +1,7 @@
 // =================================================================================================
 // External Dependencies
 // =================================================================================================
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
@@ -11,34 +11,30 @@ import styles from "../styles.js";
 // =================================================================================================
 // Component
 // =================================================================================================
-const LabeledTextInput = (props) => {
+const FitnessTrackerButton = (props) => {
     // JSX =========================================================================================
-    return (
-        <View style={[ props.style, componentStyles.container ]} >
-            <Text style={styles.text}>{props.label}</Text>
-            
-            <TextInput
-                style={componentStyles.textInput}
-                value={props.value}
-                onChangeText={props.onChangeText}
-            />
-        </View>
+    return(
+        <TouchableOpacity
+            style={[ props.style, componentStyles.fitnessTrackerButton ]}
+            onPress={props.onPress}
+        >
+            <Text style={styles.text} >{props.title}</Text>
+        </TouchableOpacity>
     );
 };
 
-export default LabeledTextInput;
+export default FitnessTrackerButton;
 
 // =================================================================================================
 // Stylesheet
 // =================================================================================================
 const componentStyles = StyleSheet.create({
-    container: {
+    fitnessTrackerButton: {
         margin: 5,
-        width: "100%"
-    },
-
-    textInput: {
-        backgroundColor: "beige",
-        color: "darkblue"
+        borderRadius: 2,
+        backgroundColor: "dodgerblue",
+        padding: 5,
+        justifyContent: "center",
+        alignItems: "center"
     }
 });

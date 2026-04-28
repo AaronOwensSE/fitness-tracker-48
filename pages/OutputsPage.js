@@ -2,13 +2,17 @@
 // External Dependencies
 // =================================================================================================
 import { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
+import styles from "../styles.js";
 import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
+import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
+import OutputLineItem from "../components/OutputLineItem.js";
+import Title from "../components/Title.js";
 import formulas from "../services/formulas.js";
 import storage from "../services/storage.js";
 
@@ -87,33 +91,75 @@ const OutputsPage = (props) => {
         formulas.carbsPercentage(proteinPercentageForBulk, fatPercentageForBulk);
 
     return (
-        <View style={styles.containerView}>
-            <Text>Outputs</Text>
+        <View style={styles.screen}>
+            <View style={styles.contentContainer}>
+                <View style={styles.head}>
+                    <Title />
+                </View>
 
-            <View style={styles.outputsView}>
-                <Text>Target Weight: {targetWeight} pounds</Text>
-                <Text>Total Daily Energy Expenditure: {totalDailyEnergyExpenditure} calories</Text>
+                <View style={styles.body}>
+                    <Text style={styles.h2}>Outputs</Text>
 
-                <Text>Cut</Text>
-                <Text>Daily Calories: {dailyCutCalories}</Text>
-                <Text>Protein: {proteinInGrams} grams ({proteinPercentageForCut}%)</Text>
-                <Text>Fat: {fatInGrams} grams ({fatPercentageForCut}%)</Text>
-                <Text>Carbs: {carbsPercentageForCut}%</Text>
+                    <View style={styles.centeredView}>
+                        <OutputLineItem name="Target Weight: " data={targetWeight + " pounds"} />
+                        <OutputLineItem
+                            name="Total Daily Energy Expenditure: "
+                            data={totalDailyEnergyExpenditure + " calories"}
+                        />
 
-                <Text>Maintain</Text>
-                <Text>Daily Calories: {totalDailyEnergyExpenditure}</Text>
-                <Text>Protein: {proteinInGrams} grams ({proteinPercentageForMaintenance}%)</Text>
-                <Text>Fat: {fatInGrams} grams ({fatPercentageForMaintenance}%)</Text>
-                <Text>Carbs: {carbsPercentageForMaintenance}%</Text>
+                        <Text style={styles.h3}>Cut</Text>
+                        <OutputLineItem name="Daily Calories: " data={dailyCutCalories} />
+                        <OutputLineItem
+                            name="Protein: "
+                            data={proteinInGrams + " grams (" + proteinPercentageForCut + "%)"}
+                        />
+                        <OutputLineItem
+                            name="Fat: "
+                            data={fatInGrams + " grams (" + fatPercentageForCut + "%)"}
+                        />
+                        <OutputLineItem name="Carbs: " data={carbsPercentageForCut + "%"} />
+                        
+                        <Text style={styles.h3}>Maintain</Text>
+                        <OutputLineItem
+                            name="Daily Calories: "
+                            data={totalDailyEnergyExpenditure}
+                        />
+                        <OutputLineItem
+                            name="Protein: "
+                            data={proteinInGrams
+                                + " grams ("
+                                + proteinPercentageForMaintenance
+                                + "%)"
+                            }
+                        />
+                        <OutputLineItem
+                            name="Fat: "
+                            data={fatInGrams + " grams (" + fatPercentageForMaintenance + "%)"}
+                        />
+                        <OutputLineItem name="Carbs: " data={carbsPercentageForMaintenance + "%"} />
 
-                <Text>Bulk</Text>
-                <Text>Daily Calories: {dailyBulkCalories}</Text>
-                <Text>Protein: {proteinInGrams} grams ({proteinPercentageForBulk}%)</Text>
-                <Text>Fat: {fatInGrams} grams ({fatPercentageForBulk}%)</Text>
-                <Text>Carbs: {carbsPercentageForBulk}%</Text>
+                        <Text style={styles.h3}>Bulk</Text>
+                        <OutputLineItem name="Daily Calories: " data={dailyBulkCalories} />
+                        <OutputLineItem
+                            name="Protein: "
+                            data={proteinInGrams
+                                + " grams ("
+                                + proteinPercentageForBulk
+                                + "%)"
+                            }
+                        />
+                        <OutputLineItem
+                            name="Fat: "
+                            data={fatInGrams + " grams (" + fatPercentageForBulk + "%)"}
+                        />
+                        <OutputLineItem name="Carbs: " data={carbsPercentageForBulk + "%"} />
+                    </View>
+
+                    <FitnessTrackerButton
+                        title="Back" onPress={ () => props.onNavigate("LandingPage") }
+                    />
+                </View>
             </View>
-
-            <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />
         </View>
     );
 };
@@ -123,18 +169,50 @@ export default OutputsPage;
 // =================================================================================================
 // Stylesheet
 // =================================================================================================
-const styles = StyleSheet.create({
-    containerView: {
-        flex: 1,
-        backgroundColor: "white",
-        marginTop: 51,
-        marginBottom: 51,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-
+/*const pageStyles = StyleSheet.create({
     outputsView: {
         width: "80%",
         alignItems: "flex-start"
     }
-});
+});*/
+
+/*
+
+<Text style={styles.text}>Target Weight: {targetWeight} pounds</Text>
+                        <Text style={styles.text}>
+                            Total Daily Energy Expenditure: {totalDailyEnergyExpenditure} calories
+                        </Text>
+
+                        <Text style={styles.h3}>Cut</Text>
+                        <Text style={styles.text}>Daily Calories: {dailyCutCalories}</Text>
+                        <Text style={styles.text}>
+                            Protein: {proteinInGrams} grams ({proteinPercentageForCut}%)
+                        </Text>
+                        <Text style={styles.text}>
+                            Fat: {fatInGrams} grams ({fatPercentageForCut}%)
+                        </Text>
+                        <Text style={styles.text}>Carbs: {carbsPercentageForCut}%</Text>
+
+                        <Text style={styles.h3}>Maintain</Text>
+                        <Text style={styles.text}>
+                            Daily Calories: {totalDailyEnergyExpenditure}
+                        </Text>
+                        <Text style={styles.text}>
+                            Protein: {proteinInGrams} grams ({proteinPercentageForMaintenance}%)
+                        </Text>
+                        <Text style={styles.text}>
+                            Fat: {fatInGrams} grams ({fatPercentageForMaintenance}%)
+                        </Text>
+                        <Text style={styles.text}>Carbs: {carbsPercentageForMaintenance}%</Text>
+
+                        <Text style={styles.h3}>Bulk</Text>
+                        <Text style={styles.text}>Daily Calories: {dailyBulkCalories}</Text>
+                        <Text style={styles.text}>
+                            Protein: {proteinInGrams} grams ({proteinPercentageForBulk}%)
+                        </Text>
+                        <Text style={styles.text}>
+                            Fat: {fatInGrams} grams ({fatPercentageForBulk}%)
+                        </Text>
+                        <Text style={styles.text}>Carbs: {carbsPercentageForBulk}%</Text>
+
+*/

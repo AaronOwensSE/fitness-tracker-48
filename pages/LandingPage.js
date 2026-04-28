@@ -1,7 +1,14 @@
 // =================================================================================================
 // External Dependencies
 // =================================================================================================
-import { Button, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+
+// =================================================================================================
+// Internal Dependencies
+// =================================================================================================
+import styles from "../styles.js";
+import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
+import Title from "../components/Title.js";
 
 // =================================================================================================
 // Page
@@ -9,11 +16,38 @@ import { Button, StyleSheet, View } from "react-native";
 const LandingPage = (props) => {
     // JSX =========================================================================================
     return(
-        <View style={styles.containerView}>
-            <Button title="Inputs" onPress={ () => props.onNavigate("InputsPage") } />
-            <Button title="Outputs" onPress={ () => props.onNavigate("OutputsPage") } />
-            <Button title="PRs" onPress={ () => props.onNavigate("PRsPage") } />
-            <Button title="Workouts" onPress={ () => props.onNavigate("WorkoutsPage") } />
+        <View style={styles.screen} >
+            <View style={styles.contentContainer}>
+                <View style={styles.head} >
+                    <Title />
+                </View>
+
+                <View style={styles.body} >
+                    <FitnessTrackerButton 
+                        style={pageStyles.landingPageButton}
+                        title="Inputs"
+                        onPress={ () => props.onNavigate("InputsPage") }
+                    />
+
+                    <FitnessTrackerButton
+                        style={pageStyles.landingPageButton}
+                        title="Outputs"
+                        onPress={ () => props.onNavigate("OutputsPage") }
+                    />
+
+                    <FitnessTrackerButton
+                        style={pageStyles.landingPageButton}
+                        title="PRs"
+                        onPress={ () => props.onNavigate("PRsPage") }
+                    />
+
+                    <FitnessTrackerButton
+                        style={pageStyles.landingPageButton}
+                        title="Workouts"
+                        onPress={ () => props.onNavigate("WorkoutsPage") }
+                    />
+                </View>
+            </View>
         </View>
     );
 };
@@ -23,13 +57,8 @@ export default LandingPage;
 // =================================================================================================
 // Stylesheet
 // =================================================================================================
-const styles = StyleSheet.create({
-    containerView: {
-        flex: 1,
-        backgroundColor: "white",
-        marginTop: 51,
-        marginBottom: 51,
-        justifyContent: "center",
-        alignItems: "center"
+const pageStyles = StyleSheet.create({
+    landingPageButton: {
+        width: "80%"
     }
 });

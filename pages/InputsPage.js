@@ -2,14 +2,17 @@
 // External Dependencies
 // =================================================================================================
 import { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
+import styles from "../styles.js";
 import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
+import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
 import LabeledTextInput from "../components/LabeledTextInput.js";
+import Title from "../components/Title.js";
 import storage from "../services/storage.js";
 
 // =================================================================================================
@@ -75,71 +78,68 @@ const InputsPage = (props) => {
     }
 
     return(
-        <View style={styles.containerView}>
-            <Text>Inputs</Text>
+        <View style={styles.screen} >
+            <View style={styles.contentContainer} >
+                <View style={styles.head} >
+                    <Title />
+                </View>
 
-            <View style={styles.inputFieldsView}>
-                <LabeledTextInput
-                    label="Body Weight (Pounds)"
-                    value={ String(bodyWeight) }
-                    onChangeText={setBodyWeight}
-                />
+                <View style={styles.body}>
+                    <Text style={styles.h2}>Inputs</Text>
 
-                <LabeledTextInput
-                    label="Resting Metabolic Rate (Calories)"
-                    value={ String(restingMetabolicRate) }
-                    onChangeText={setRestingMetabolicRate}
-                />
+                    <View style={styles.centeredView}>
+                        <LabeledTextInput
+                            label="Body Weight (Pounds)"
+                            value={ String(bodyWeight) }
+                            onChangeText={setBodyWeight}
+                        />
 
-                <LabeledTextInput
-                    label="Lean Mass (Pounds)" value={ String(leanMass) } onChangeText={setLeanMass}
-                />
+                        <LabeledTextInput
+                            label="Resting Metabolic Rate (Calories)"
+                            value={ String(restingMetabolicRate) }
+                            onChangeText={setRestingMetabolicRate}
+                        />
 
-                <LabeledTextInput
-                    label="Bone Mass (Pounds)" value={ String(boneMass) } onChangeText={setBoneMass}
-                />
+                        <LabeledTextInput
+                            label="Lean Mass (Pounds)"
+                            value={ String(leanMass) }
+                            onChangeText={setLeanMass}
+                        />
 
-                <LabeledTextInput
-                    label="Target Lean Mass (Pounds)"
-                    value={ String(targetLeanMass) }
-                    onChangeText={setTargetLeanMass}
-                />
+                        <LabeledTextInput
+                            label="Bone Mass (Pounds)"
+                            value={ String(boneMass) }
+                            onChangeText={setBoneMass}
+                        />
 
-                <LabeledTextInput
-                    label="Target Body Fat %"
-                    value={ String(targetBodyFatPercentage) }
-                    onChangeText={setTargetBodyFatPercentage}
-                />
+                        <LabeledTextInput
+                            label="Target Lean Mass (Pounds)"
+                            value={ String(targetLeanMass) }
+                            onChangeText={setTargetLeanMass}
+                        />
 
-                <LabeledTextInput
-                    label="Activity Level (~1.2 to 1.8)"
-                    value={ String(activityLevel) }
-                    onChangeText={setActivityLevel}
-                />
+                        <LabeledTextInput
+                            label="Target Body Fat %"
+                            value={ String(targetBodyFatPercentage) }
+                            onChangeText={setTargetBodyFatPercentage}
+                        />
+
+                        <LabeledTextInput
+                            label="Activity Level (~1.2 to 1.8)"
+                            value={ String(activityLevel) }
+                            onChangeText={setActivityLevel}
+                        />
+                    </View>
+
+                    <FitnessTrackerButton title="Update" onPress={handleUpdateInputs} />
+                    
+                    <FitnessTrackerButton
+                        title="Back" onPress={ () => props.onNavigate("LandingPage") }
+                    />
+                </View>
             </View>
-
-            <Button title="Update" onPress={handleUpdateInputs} />
-            <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />
         </View>
     );
 };
 
 export default InputsPage;
-
-// =================================================================================================
-// Stylesheet
-// =================================================================================================
-const styles = StyleSheet.create({
-    containerView: {
-        flex: 1,
-        backgroundColor: "white",
-        marginTop: 51,
-        marginBottom: 51,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-
-    inputFieldsView: {
-        width: "80%",
-    }
-});

@@ -1,7 +1,14 @@
 // =================================================================================================
 // External Dependencies
 // =================================================================================================
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+
+// =================================================================================================
+// Internal Dependencies
+// =================================================================================================
+import styles from "../styles.js";
+import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
+import Title from "../components/Title.js";
 
 // =================================================================================================
 // Page
@@ -9,25 +16,24 @@ import { Button, StyleSheet, Text, View } from "react-native";
 const ErrorMessagePage = (props) => {
     // JSX =========================================================================================
     return(
-        <View style={styles.containerView}>
-            <Text>{props.errorMessage}</Text>
-            <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />
+        <View style={styles.screen} >
+            <View style={styles.contentContainer} >
+                <View style={styles.head} >
+                    <Title />
+                </View>
+
+                <View style={styles.body} >
+                    <Text style={styles.text} >{props.errorMessage + "\n"}</Text>
+
+                    <FitnessTrackerButton 
+                        style={styles.fitnessTrackerButton}
+                        title="Back"
+                        onPress={ () => props.onNavigate("LandingPage") }
+                    />
+                </View>
+            </View>
         </View>
     );
 };
 
 export default ErrorMessagePage;
-
-// =================================================================================================
-// Stylesheet
-// =================================================================================================
-const styles = StyleSheet.create({
-    containerView: {
-        flex: 1,
-        backgroundColor: "white",
-        marginTop: 51,
-        marginBottom: 51,
-        justifyContent: "center",
-        alignItems: "center"
-    }
-});
