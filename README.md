@@ -25,18 +25,25 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 | Feature | Points |
 |---|---|
 | Trim Input/Output Scope | 5 |
-| Clarify Naming | 3 |
-| Add Headings | 3 |
-| Add 3 Colors | 3 |
-| Fit ScrollViews | 3 |
-| Standardize Element Sizes | 5 |
+| Clarify Naming | 5 |
+| Type Scale Choices | 3 |
+| Color Choices | 3 |
+| Centralize Generic Styles | 5 |
+| Title Component | 2 |
+| FitnessTrackerButton Component | 3 |
+| OutputLineItem Component | 3 |
+| Apply New Visuals to Pages | 8 |
 
 | To Do | Doing | Done |
 |---|---|---|
-|  | Add Headings | Trim Input/Output Scope |
-|  | Add 3 Colors | Clarify Naming |
-|  | Fit ScrollViews |  |
-|  | Standardize Element Sizes |  |
+|  | Apply New Visuals to Pages | Trim Input/Output Scope |
+|  |  | Clarify Naming |
+|  |  | Type Scale Choices |
+|  |  | Color Choices |
+|  |  | Centralize Generic Styles |
+|  |  | Title Component |
+|  |  | FitnessTrackerButton Component |
+|  |  | OutputLineItem Component |
 
 ### Sprint 5: Exercises
 
