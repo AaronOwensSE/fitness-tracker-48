@@ -8,27 +8,27 @@ import { Button, StyleSheet, Text, View } from "react-native";
 // Internal Dependencies
 // =================================================================================================
 import ErrorMessagePage from "./ErrorMessagePage.js";
-import LabeledTextInput from "../components/LabeledTextInput";
+import LabeledTextInput from "../components/LabeledTextInput.js";
 import database from "../services/database.js";
 
 // =================================================================================================
 // Page
 // =================================================================================================
-const AddPRPage = (props) => {
+const AddPersonalRecordPage = (props) => {
     // State =======================================================================================
     const [ name, setName ] = useState(null);
     const [ weight, setWeight ] = useState(null);
     const [ errorMessage, setErrorMessage ] = useState(null);
 
     // Handlers ====================================================================================
-    const handleAddPR = async () => {
+    const handleAddPersonalRecord = async () => {
         try {
-            await database.createPR(name, weight);
+            await database.createPersonalRecord(name, weight);
         } catch (error) {
             setErrorMessage("Data storage error.");
         }
 
-        props.onNavigate("PRsPage");
+        props.onNavigate("PersonalRecordsPage");
     };
 
     // JSX =========================================================================================
@@ -38,7 +38,7 @@ const AddPRPage = (props) => {
 
     return(
         <View style={styles.containerView}>
-            <Text>Add PR</Text>
+            <Text>Add Personal Record</Text>
 
             <View style={styles.inputFieldsView}>
                 <LabeledTextInput label="Name" onChangeText={setName} />
@@ -48,13 +48,13 @@ const AddPRPage = (props) => {
                 />
             </View>
 
-            <Button title="Add" onPress={handleAddPR} />
-            <Button title="Back" onPress={ () => props.onNavigate("PRsPage") } />
+            <Button title="Add" onPress={handleAddPersonalRecord} />
+            <Button title="Back" onPress={ () => props.onNavigate("PersonalRecordsPage") } />
         </View>
     );
 };
 
-export default AddPRPage;
+export default AddPersonalRecordPage;
 
 // =================================================================================================
 // Stylesheet

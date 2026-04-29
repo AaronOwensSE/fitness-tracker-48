@@ -9,15 +9,15 @@ import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
 // =================================================================================================
 import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
-import PRLineItem from "../components/PRLineItem.js";
+import PersonalRecordLineItem from "../components/PersonalRecordLineItem.js";
 import database from "../services/database.js";
 
 // =================================================================================================
 // Page
 // =================================================================================================
-const PRsPage = (props) => {
+const PersonalRecordsPage = (props) => {
     // State =======================================================================================
-    const [ prs, setPRs ] = useState([]);
+    const [ personalRecords, setPersonalRecords ] = useState([]);
     const [ errorMessage, setErrorMessage ] = useState(null);
     const [ loading, setLoading ] = useState(true);
 
@@ -25,7 +25,7 @@ const PRsPage = (props) => {
     useEffect( () => {
         const load = async () => {
             try {
-                setPRs(await database.readPRs());
+                setPersonalRecords(await database.readPersonalRecords());
             } catch (error) {
                 setErrorMessage("Data retrieval error.");
             }
@@ -40,26 +40,26 @@ const PRsPage = (props) => {
     const handleChangeText = (index, text) => {
         // State is immutable. We cannot modify prs directly, so we copy both the array and the
         // object in question so that we are not modifying a reference at any point.
-        const updatedPRs = [...prs];
-        updatedPRs[index] = { ...updatedPRs[index], weight: text };
-        setPRs(updatedPRs);
+        const updatedPersonalRecords = [...personalRecords];
+        updatedPersonalRecords[index] = { ...updatedPersonalRecords[index], weight: text };
+        setPersonalRecords(updatedPersonalRecords);
     };
 
-    const handleUpdatePR = async (name, weight) => {
+    const handleUpdatePersonalRecord = async (name, weight) => {
         try {
-            await database.updatePR(name, weight);
+            await database.updatePersonalRecord(name, weight);
         } catch (error) {
             setErrorMessage("Data storage error.");
         }
     };
 
-    const handleDeletePR = async (name) => {
+    const handleDeletePersonalRecord = async (name) => {
         // Again, state is immutable. We create a copy of prs with the deleted item absent.
-        const updatedPRs = prs.filter(pr => pr.name !== name);
-        setPRs(updatedPRs);
+        const updatedPRs = personalRecords.filter(personalRecord => personalRecord.name !== name);
+        setPersonalRecords(updatedPRs);
 
         try {
-            await database.deletePR(name);
+            await database.deletePersonalRecord(name);
         } catch (error) {
             setErrorMessage("Data deletion error.");
         }
@@ -76,30 +76,34 @@ const PRsPage = (props) => {
 
     return(
         <View style={styles.containerView}>
-            <Text>PRs</Text>
+            <Text>Personal Records</Text>
 
             <View style={styles.scrollViewWrapperView}>
                 <ScrollView>
-                    {prs.map(
-                        (pr, index) => <PRLineItem 
-                            key={pr.name}
-                            name={pr.name}
-                            weight={pr.weight}
+                    {personalRecords.map(
+                        (personalRecord, index) => <PersonalRecordLineItem 
+                            key={personalRecord.name}
+                            name={personalRecord.name}
+                            weight={personalRecord.weight}
                             onChangeText={(text) => handleChangeText(index, text)}
-                            onUpdate={handleUpdatePR}
-                            onDelete={handleDeletePR}
+                            onUpdate={handleUpdatePersonalRecord}
+                            onDelete={handleDeletePersonalRecord}
                         />
                     )}
                 </ScrollView>
             </View>
 
-            <Button title="Add PR" onPress={ () => props.onNavigate("AddPRPage") } />
+            <Button
+                title="Add Personal Record"
+                onPress={ () => props.onNavigate("AddPersonalRecordPage") }
+            />
+
             <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />
         </View>
     );
 };
 
-export default PRsPage;
+export default PersonalRecordsPage;
 
 // =================================================================================================
 // Stylesheet

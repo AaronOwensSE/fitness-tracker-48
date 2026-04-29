@@ -11,8 +11,8 @@ import ErrorMessagePage from "./pages/ErrorMessagePage.js";
 import LandingPage from "./pages/LandingPage.js";
 import InputsPage from "./pages/InputsPage.js";
 import OutputsPage from "./pages/OutputsPage.js";
-import PRsPage from "./pages/PRsPage.js";
-import AddPRPage from "./pages/AddPRPage.js";
+import PersonalRecordsPage from "./pages/PersonalRecordsPage.js";
+import AddPersonalRecordPage from "./pages/AddPersonalRecordPage.js";
 import WorkoutsPage from "./pages/WorkoutsPage.js";
 import AddWorkoutPage from "./pages/AddWorkoutPage.js";
 import WorkoutPage from "./pages/WorkoutPage.js";
@@ -66,10 +66,10 @@ export default function App() {
             return <InputsPage onNavigate={handleNavigate} />;
         case "OutputsPage":
             return <OutputsPage onNavigate={handleNavigate} />;
-        case "PRsPage":
-            return <PRsPage onNavigate={handleNavigate} />;
-        case "AddPRPage":
-            return <AddPRPage onNavigate={handleNavigate} />;
+        case "PersonalRecordsPage":
+            return <PersonalRecordsPage onNavigate={handleNavigate} />;
+        case "AddPersonalRecordPage":
+            return <AddPersonalRecordPage onNavigate={handleNavigate} />;
         case "WorkoutsPage":
             return <WorkoutsPage onNavigate={handleNavigate} />;
         case "AddWorkoutPage":

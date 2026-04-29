@@ -25,7 +25,7 @@ async function buildSchema() {
         await db.execAsync(`
             PRAGMA foreign_keys = ON;
 
-            CREATE TABLE IF NOT EXISTS prs (
+            CREATE TABLE IF NOT EXISTS personal_records (
                 name VARCHAR(30) PRIMARY KEY,
                 weight INTEGER
             );
@@ -52,22 +52,24 @@ async function buildSchema() {
     }
 }
 
-async function createPR(name, weight) {
+async function createPersonalRecord(name, weight) {
     const db = await dbPromise;
 
     try {
-        await db.runAsync("INSERT INTO prs (name, weight) VALUES (?, ?);", [ name, weight ]);
+        await db.runAsync(
+            "INSERT INTO personal_records (name, weight) VALUES (?, ?);", [ name, weight ]
+        );
     } catch (error) {
         throw new errors.DataStorageError();
     }
 }
 
-async function readPRs() {
+async function readPersonalRecords() {
     const db = await dbPromise;
     let result;
 
     try {
-        result = await db.getAllAsync("SELECT * FROM prs ORDER BY name;");
+        result = await db.getAllAsync("SELECT * FROM personal_records ORDER BY name;");
     } catch (error) {
         throw new errors.DataRetrievalError();
     }
@@ -75,21 +77,23 @@ async function readPRs() {
     return result;
 }
 
-async function updatePR(name, weight) {
+async function updatePersonalRecord(name, weight) {
     const db = await dbPromise;
 
     try {
-        await db.runAsync("UPDATE prs SET weight = ? WHERE name = ?;", [ weight, name ]);
+        await db.runAsync(
+            "UPDATE personal_records SET weight = ? WHERE name = ?;", [ weight, name ]
+        );
     } catch (error) {
         throw new errors.DataStorageError();
     }
 }
 
-async function deletePR(name) {
+async function deletePersonalRecord(name) {
     const db = await dbPromise;
 
     try {
-        await db.runAsync("DELETE FROM prs WHERE name = ?;", [name]);
+        await db.runAsync("DELETE FROM personal_records WHERE name = ?;", [name]);
     } catch (error) {
         throw new errors.DataDeletionError();
     }
@@ -195,10 +199,10 @@ async function deleteExercise(exerciseId) {
 
 const database = {
     buildSchema,
-    createPR,
-    readPRs,
-    updatePR,
-    deletePR,
+    createPersonalRecord,
+    readPersonalRecords,
+    updatePersonalRecord,
+    deletePersonalRecord,
     createWorkout,
     readWorkouts,
     readWorkout,

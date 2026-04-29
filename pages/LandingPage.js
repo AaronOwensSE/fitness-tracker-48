@@ -37,8 +37,8 @@ const LandingPage = (props) => {
 
                     <FitnessTrackerButton
                         style={pageStyles.landingPageButton}
-                        title="PRs"
-                        onPress={ () => props.onNavigate("PRsPage") }
+                        title="Personal Records"
+                        onPress={ () => props.onNavigate("PersonalRecordsPage") }
                     />
 
                     <FitnessTrackerButton

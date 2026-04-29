@@ -11,8 +11,11 @@ import LabeledTextInput from "./LabeledTextInput";
 // =================================================================================================
 // Component
 // =================================================================================================
-const PRLineItem = (props) => {
+const PersonalRecordLineItem = (props) => {
     // JSX =========================================================================================
+    
+    // include props.style
+    
     return(
         <View style={styles.containerView}>
             <View style={styles.dataView}>
@@ -34,7 +37,7 @@ const PRLineItem = (props) => {
     );
 };
 
-export default PRLineItem;
+export default PersonalRecordLineItem;
 
 // =================================================================================================
 // Stylesheet
