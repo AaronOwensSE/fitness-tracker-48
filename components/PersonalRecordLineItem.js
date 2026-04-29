@@ -1,11 +1,12 @@
 // =================================================================================================
 // External Dependencies
 // =================================================================================================
-import { Button, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
+import FitnessTrackerButton from "./FitnessTrackerButton";
 import LabeledTextInput from "./LabeledTextInput";
 
 // =================================================================================================
@@ -13,12 +14,9 @@ import LabeledTextInput from "./LabeledTextInput";
 // =================================================================================================
 const PersonalRecordLineItem = (props) => {
     // JSX =========================================================================================
-    
-    // include props.style
-    
     return(
-        <View style={styles.containerView}>
-            <View style={styles.dataView}>
+        <View style={[ props.style, componentStyles.containerView ]}>
+            <View style={componentStyles.dataView}>
                 <LabeledTextInput
                     label={props.name}
                     value={ String(props.weight) }
@@ -26,12 +24,12 @@ const PersonalRecordLineItem = (props) => {
                 />
             </View>
             
-            <View style={styles.buttonsView}>
-                <Button 
+            <View style={componentStyles.buttonsView}>
+                <FitnessTrackerButton 
                     title="Update" onPress={ () => props.onUpdate(props.name, props.weight) }
                 />
 
-                <Button title="Delete" onPress={ () => props.onDelete(props.name) } />
+                <FitnessTrackerButton title="Delete" onPress={ () => props.onDelete(props.name) } />
             </View>
         </View>
     );
@@ -42,7 +40,7 @@ export default PersonalRecordLineItem;
 // =================================================================================================
 // Stylesheet
 // =================================================================================================
-const styles = StyleSheet.create({
+const componentStyles = StyleSheet.create({
     containerView: {
         flex: 1,
         flexDirection: "row"

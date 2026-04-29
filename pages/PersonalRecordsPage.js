@@ -2,14 +2,17 @@
 // External Dependencies
 // =================================================================================================
 import { useEffect, useState } from "react";
-import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
+import styles from "../styles.js";
 import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
+import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
 import PersonalRecordLineItem from "../components/PersonalRecordLineItem.js";
+import Title from "../components/Title.js";
 import database from "../services/database.js";
 
 // =================================================================================================
@@ -75,51 +78,42 @@ const PersonalRecordsPage = (props) => {
     }
 
     return(
-        <View style={styles.containerView}>
-            <Text>Personal Records</Text>
+        <View style={styles.screen} >
+            <View style={styles.contentContainer} >
+                <View style={styles.head}>
+                    <Title />
+                </View>
 
-            <View style={styles.scrollViewWrapperView}>
-                <ScrollView>
-                    {personalRecords.map(
-                        (personalRecord, index) => <PersonalRecordLineItem 
-                            key={personalRecord.name}
-                            name={personalRecord.name}
-                            weight={personalRecord.weight}
-                            onChangeText={(text) => handleChangeText(index, text)}
-                            onUpdate={handleUpdatePersonalRecord}
-                            onDelete={handleDeletePersonalRecord}
-                        />
-                    )}
-                </ScrollView>
+                <View style={styles.body} >
+                    <Text style={styles.h2}>Personal Records</Text>
+
+                    <View style={styles.scrollViewContainer}>
+                        <ScrollView>
+                            {personalRecords.map(
+                                (personalRecord, index) => <PersonalRecordLineItem 
+                                    key={personalRecord.name}
+                                    name={personalRecord.name}
+                                    weight={personalRecord.weight}
+                                    onChangeText={(text) => handleChangeText(index, text)}
+                                    onUpdate={handleUpdatePersonalRecord}
+                                    onDelete={handleDeletePersonalRecord}
+                                />
+                            )}
+                        </ScrollView>
+                    </View>
+
+                    <FitnessTrackerButton
+                        title="Add Personal Record"
+                        onPress={ () => props.onNavigate("AddPersonalRecordPage") }
+                    />
+
+                    <FitnessTrackerButton
+                        title="Back" onPress={ () => props.onNavigate("LandingPage") }
+                    />
+                </View>
             </View>
-
-            <Button
-                title="Add Personal Record"
-                onPress={ () => props.onNavigate("AddPersonalRecordPage") }
-            />
-
-            <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />
         </View>
     );
 };
 
 export default PersonalRecordsPage;
-
-// =================================================================================================
-// Stylesheet
-// =================================================================================================
-const styles = StyleSheet.create({
-    containerView: {
-        flex: 1,
-        backgroundColor: "white",
-        marginTop: 51,
-        marginBottom: 51,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-
-    scrollViewWrapperView: {
-        width: "80%",
-        height: "30%",
-    }
-});
