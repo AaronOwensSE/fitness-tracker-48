@@ -16,35 +16,35 @@ import Title from "../components/Title.js";
 const LandingPage = (props) => {
     // JSX =========================================================================================
     return(
-        <View style={styles.screen} >
+        <View style={styles.screen}>
             <View style={styles.contentContainer}>
-                <View style={styles.head} >
+                <View style={styles.head}>
                     <Title />
                 </View>
 
-                <View style={styles.body} >
+                <View style={styles.body}>
                     <FitnessTrackerButton 
                         style={pageStyles.landingPageButton}
                         title="Inputs"
-                        onPress={ () => props.onNavigate("InputsPage") }
+                        onPress={() => props.onNavigate("InputsPage")}
                     />
 
                     <FitnessTrackerButton
                         style={pageStyles.landingPageButton}
                         title="Outputs"
-                        onPress={ () => props.onNavigate("OutputsPage") }
+                        onPress={() => props.onNavigate("OutputsPage")}
                     />
 
                     <FitnessTrackerButton
                         style={pageStyles.landingPageButton}
                         title="Personal Records"
-                        onPress={ () => props.onNavigate("PersonalRecordsPage") }
+                        onPress={() => props.onNavigate("PersonalRecordsPage")}
                     />
 
                     <FitnessTrackerButton
                         style={pageStyles.landingPageButton}
                         title="Workouts"
-                        onPress={ () => props.onNavigate("WorkoutsPage") }
+                        onPress={() => props.onNavigate("WorkoutsPage")}
                     />
                 </View>
             </View>

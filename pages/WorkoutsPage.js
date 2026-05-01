@@ -2,13 +2,16 @@
 // External Dependencies
 // =================================================================================================
 import { useEffect, useState } from "react";
-import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
+import styles from "../styles.js";
 import ErrorMessagePage from "./ErrorMessagePage";
 import LoadingPage from "./LoadingPage";
+import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
+import Title from "../components/Title.js";
 import WorkoutLineItem from "../components/WorkoutLineItem.js";
 import database from "../services/database.js";
 
@@ -22,7 +25,7 @@ const WorkoutsPage = (props) => {
     const [ errorMessage, setErrorMessage ] = useState(null);
 
     // Hooks =======================================================================================
-    useEffect( () => {
+    useEffect(() => {
         const load = async () => {
             try {
                 setWorkouts(await database.readWorkouts());
@@ -34,7 +37,7 @@ const WorkoutsPage = (props) => {
         };
 
         load();
-    }, [] );
+    }, []);
 
     // Handlers ====================================================================================
     const handleDeleteWorkout = async (id) => {
@@ -58,46 +61,40 @@ const WorkoutsPage = (props) => {
     }
 
     return(
-        <View style={styles.containerView} >
-            <Text>Workouts</Text>
-            
-            <View style={styles.scrollViewWrapperView}>
-                <ScrollView>
-                    {workouts.map(
-                        (workout) => <WorkoutLineItem
-                            key={workout.id}
-                            id={workout.id}
-                            name={workout.name}
-                            onNavigate={props.onNavigate}
-                            onDelete={handleDeleteWorkout}
-                        />
-                    )}
-                </ScrollView>
-            </View>
+        <View style={styles.screen}>
+            <View style={styles.contentContainer}>
+                <View style={styles.head}>
+                    <Title />
+                </View>
 
-            <Button title="Add Workout" onPress={ () => props.onNavigate("AddWorkoutPage") } />
-            <Button title="Back" onPress={ () => props.onNavigate("LandingPage") } />
+                <View style={styles.body}>
+                    <Text style={styles.h2}>Workouts</Text>
+                    
+                    <View style={styles.scrollViewContainer}>
+                        <ScrollView>
+                            {workouts.map(
+                                (workout) => <WorkoutLineItem
+                                    key={workout.id}
+                                    id={workout.id}
+                                    name={workout.name}
+                                    onNavigate={props.onNavigate}
+                                    onDelete={handleDeleteWorkout}
+                                />
+                            )}
+                        </ScrollView>
+                    </View>
+                    
+                    <FitnessTrackerButton
+                        title="Add Workout" onPress={() => props.onNavigate("AddWorkoutPage")}
+                    />
+
+                    <FitnessTrackerButton
+                        title="Back" onPress={() => props.onNavigate("LandingPage")}
+                    />
+                </View>
+            </View>
         </View>
     );
 };
 
 export default WorkoutsPage;
-
-// =================================================================================================
-// Stylesheet
-// =================================================================================================
-const styles = StyleSheet.create({
-    containerView: {
-        flex: 1,
-        backgroundColor: "white",
-        marginTop: 51,
-        marginBottom: 51,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-
-    scrollViewWrapperView: {
-        width: "80%",
-        height: "30%"
-    }
-});

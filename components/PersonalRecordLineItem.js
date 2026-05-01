@@ -19,17 +19,17 @@ const PersonalRecordLineItem = (props) => {
             <View style={componentStyles.dataView}>
                 <LabeledTextInput
                     label={props.name}
-                    value={ String(props.weight) }
+                    value={String(props.weight)}
                     onChangeText={props.onChangeText}
                 />
             </View>
             
             <View style={componentStyles.buttonsView}>
                 <FitnessTrackerButton 
-                    title="Update" onPress={ () => props.onUpdate(props.name, props.weight) }
+                    title="Update" onPress={() => props.onUpdate(props.name, props.weight)}
                 />
 
-                <FitnessTrackerButton title="Delete" onPress={ () => props.onDelete(props.name) } />
+                <FitnessTrackerButton title="Delete" onPress={() => props.onDelete(props.name)} />
             </View>
         </View>
     );
@@ -42,6 +42,7 @@ export default PersonalRecordLineItem;
 // =================================================================================================
 const componentStyles = StyleSheet.create({
     containerView: {
+        margin: 5,
         flex: 1,
         flexDirection: "row"
     },
@@ -55,6 +56,7 @@ const componentStyles = StyleSheet.create({
     buttonsView: {
         flex: 1,
         flexDirection: "row",
-        justifyContent: "flex-end"
-    }
+        justifyContent: "flex-end",
+        alignItems: "center"
+    },
 });

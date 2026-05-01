@@ -2,7 +2,7 @@
 // External Dependencies
 // =================================================================================================
 import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
@@ -32,7 +32,7 @@ const OutputsPage = (props) => {
     const [ loading, setLoading ] = useState(true);
 
     // Hooks =======================================================================================
-    useEffect( () => {
+    useEffect(() => {
         const load = async () => {
             try {
                 setBodyWeight(await storage.getItem("bodyWeight"));
@@ -50,7 +50,7 @@ const OutputsPage = (props) => {
         };
 
         load();
-    }, [] );
+    }, []);
 
     // JSX =========================================================================================
     if (loading) {
@@ -61,34 +61,34 @@ const OutputsPage = (props) => {
         return <ErrorMessagePage errorMessage={errorMessage} onNavigate={props.onNavigate} />;
     }
 
-    const targetWeight = formulas.targetWeight(targetBodyFatPercentage, targetLeanMass, boneMass);
+    const targetWeight = formulas.targetWeight( targetBodyFatPercentage, targetLeanMass, boneMass );
 
     const totalDailyEnergyExpenditure =
-        formulas.totalDailyEnergyExpenditure(restingMetabolicRate, activityLevel);
-    const dailyCutCalories = formulas.dailyCaloriesForCut(bodyWeight, totalDailyEnergyExpenditure);
+        formulas.totalDailyEnergyExpenditure( restingMetabolicRate, activityLevel );
+    const dailyCutCalories =
+        formulas.dailyCaloriesForCut( bodyWeight, totalDailyEnergyExpenditure );
     const dailyBulkCalories =
-        formulas.dailyCaloriesForBulk(bodyWeight, totalDailyEnergyExpenditure);
+        formulas.dailyCaloriesForBulk( bodyWeight, totalDailyEnergyExpenditure );
 
     const proteinInGrams = formulas.proteinInGrams(leanMass);
-    const proteinPercentageForCut = formulas.proteinPercentage(proteinInGrams, dailyCutCalories);
+    const proteinPercentageForCut = formulas.proteinPercentage( proteinInGrams, dailyCutCalories );
     const proteinPercentageForMaintenance =
-        formulas.proteinPercentage(proteinInGrams, totalDailyEnergyExpenditure);
-    const proteinPercentageForBulk = formulas.proteinPercentage(proteinInGrams, dailyBulkCalories);
+        formulas.proteinPercentage( proteinInGrams, totalDailyEnergyExpenditure );
+    const proteinPercentageForBulk =
+        formulas.proteinPercentage( proteinInGrams, dailyBulkCalories );
 
     const fatInGrams = formulas.fatInGrams(targetWeight);
-    const fatPercentageForCut = formulas.fatPercentage(fatInGrams, dailyCutCalories);
+    const fatPercentageForCut = formulas.fatPercentage( fatInGrams, dailyCutCalories );
     const fatPercentageForMaintenance =
-        formulas.fatPercentage(fatInGrams, totalDailyEnergyExpenditure);
-    const fatPercentageForBulk = formulas.fatPercentage(fatInGrams, dailyBulkCalories);
+        formulas.fatPercentage( fatInGrams, totalDailyEnergyExpenditure );
+    const fatPercentageForBulk = formulas.fatPercentage( fatInGrams, dailyBulkCalories );
 
     const carbsPercentageForCut =
-        formulas.carbsPercentage(proteinPercentageForCut, fatPercentageForCut);
+        formulas.carbsPercentage( proteinPercentageForCut, fatPercentageForCut );
     const carbsPercentageForMaintenance =
-        formulas.carbsPercentage(
-            proteinPercentageForMaintenance, fatPercentageForMaintenance
-        );
+        formulas.carbsPercentage( proteinPercentageForMaintenance, fatPercentageForMaintenance );
     const carbsPercentageForBulk =
-        formulas.carbsPercentage(proteinPercentageForBulk, fatPercentageForBulk);
+        formulas.carbsPercentage( proteinPercentageForBulk, fatPercentageForBulk );
 
     return (
         <View style={styles.screen}>
@@ -102,28 +102,34 @@ const OutputsPage = (props) => {
 
                     <View style={styles.centeredView}>
                         <OutputLineItem name="Target Weight: " data={targetWeight + " pounds"} />
+
                         <OutputLineItem
                             name="Total Daily Energy Expenditure: "
                             data={totalDailyEnergyExpenditure + " calories"}
                         />
 
-                        <Text style={styles.h3}>Cut</Text>
+                        <Text style={[ pageStyles.subHeadings, styles.h3 ]}>Cut</Text>
                         <OutputLineItem name="Daily Calories: " data={dailyCutCalories} />
+
                         <OutputLineItem
                             name="Protein: "
                             data={proteinInGrams + " grams (" + proteinPercentageForCut + "%)"}
                         />
+
                         <OutputLineItem
                             name="Fat: "
                             data={fatInGrams + " grams (" + fatPercentageForCut + "%)"}
                         />
+
                         <OutputLineItem name="Carbs: " data={carbsPercentageForCut + "%"} />
                         
-                        <Text style={styles.h3}>Maintain</Text>
+                        <Text style={[ pageStyles.subHeadings, styles.h3 ]}>Maintain</Text>
+
                         <OutputLineItem
                             name="Daily Calories: "
                             data={totalDailyEnergyExpenditure}
                         />
+
                         <OutputLineItem
                             name="Protein: "
                             data={proteinInGrams
@@ -132,14 +138,17 @@ const OutputsPage = (props) => {
                                 + "%)"
                             }
                         />
+
                         <OutputLineItem
                             name="Fat: "
                             data={fatInGrams + " grams (" + fatPercentageForMaintenance + "%)"}
                         />
+
                         <OutputLineItem name="Carbs: " data={carbsPercentageForMaintenance + "%"} />
 
-                        <Text style={styles.h3}>Bulk</Text>
+                        <Text style={[ pageStyles.subHeadings, styles.h3 ]}>Bulk</Text>
                         <OutputLineItem name="Daily Calories: " data={dailyBulkCalories} />
+
                         <OutputLineItem
                             name="Protein: "
                             data={proteinInGrams
@@ -148,15 +157,17 @@ const OutputsPage = (props) => {
                                 + "%)"
                             }
                         />
+
                         <OutputLineItem
                             name="Fat: "
                             data={fatInGrams + " grams (" + fatPercentageForBulk + "%)"}
                         />
+                        
                         <OutputLineItem name="Carbs: " data={carbsPercentageForBulk + "%"} />
                     </View>
 
                     <FitnessTrackerButton
-                        title="Back" onPress={ () => props.onNavigate("LandingPage") }
+                        title="Back" onPress={() => props.onNavigate("LandingPage")}
                     />
                 </View>
             </View>
@@ -165,3 +176,12 @@ const OutputsPage = (props) => {
 };
 
 export default OutputsPage;
+
+// =================================================================================================
+// Stylesheet
+// =================================================================================================
+const pageStyles = StyleSheet.create({
+    subHeadings: {
+        alignSelf: "flex-start"
+    }
+});

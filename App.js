@@ -6,17 +6,17 @@ import { useEffect, useState } from "react";
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
-import LoadingPage from "./pages/LoadingPage.js";
+import AddExercisePage from "./pages/AddExercisePage.js";
+import AddPersonalRecordPage from "./pages/AddPersonalRecordPage.js";
+import AddWorkoutPage from "./pages/AddWorkoutPage.js";
 import ErrorMessagePage from "./pages/ErrorMessagePage.js";
-import LandingPage from "./pages/LandingPage.js";
 import InputsPage from "./pages/InputsPage.js";
+import LandingPage from "./pages/LandingPage.js";
+import LoadingPage from "./pages/LoadingPage.js";
 import OutputsPage from "./pages/OutputsPage.js";
 import PersonalRecordsPage from "./pages/PersonalRecordsPage.js";
-import AddPersonalRecordPage from "./pages/AddPersonalRecordPage.js";
-import WorkoutsPage from "./pages/WorkoutsPage.js";
-import AddWorkoutPage from "./pages/AddWorkoutPage.js";
 import WorkoutPage from "./pages/WorkoutPage.js";
-import AddExercisePage from "./pages/AddExercisePage.js";
+import WorkoutsPage from "./pages/WorkoutsPage.js";
 import database from "./services/database.js";
 
 // =================================================================================================
@@ -30,7 +30,7 @@ export default function App() {
     const [ errorMessage, setErrorMessage ] = useState(null);
 
     // Hooks =======================================================================================
-    useEffect( () => {
+    useEffect(() => {
         const load = async () => {
             try {
                 await database.buildSchema();
@@ -42,7 +42,7 @@ export default function App() {
         };
 
         load();
-    }, [] );
+    }, []);
 
     // Handlers ====================================================================================
     const handleNavigate = (navPage, navData = null) => {

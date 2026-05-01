@@ -42,21 +42,24 @@ const styles = StyleSheet.create({
     },
 
     h1: {
-        margin: 5,
+        marginTop: 5,
+        marginBottom: 5,
         fontSize: 28.43,
         fontWeight: "bold",
         color: "white"
     },
 
     h2: {
-        margin: 5,
+        marginTop: 5,
+        marginBottom: 5,
         fontSize: 21.33,
         fontWeight: "bold",
         color: "white"
     },
 
     h3: {
-        margin: 5,
+        marginTop: 3,
+        marginBottom: 3,
         fontSize: 16,
         fontWeight: "bold",
         color: "white"

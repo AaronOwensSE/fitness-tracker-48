@@ -2,13 +2,16 @@
 // External Dependencies
 // =================================================================================================
 import { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
+import styles from "../styles.js";
 import ErrorMessagePage from "./ErrorMessagePage.js";
+import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
 import LabeledTextInput from "../components/LabeledTextInput";
+import Title from "../components/Title.js";
 import database from "../services/database.js";
 
 // =================================================================================================
@@ -34,36 +37,29 @@ const AddWorkoutPage = (props) => {
         return <ErrorMessagePage errorMessage={errorMessage} onNavigate={props.onNavigate} />;
     }
 
-    return (
-        <View style={styles.containerView} >
-            <Text>Add Workout</Text>
+    return(
+        <View style={styles.screen}>
+            <View style={styles.contentContainer}>
+                <View style={styles.head}>
+                    <Title />
+                </View>
 
-            <View style={styles.inputFieldsView}>
-                <LabeledTextInput label="Name" onChangeText={setName} />
+                <View style={styles.body}>
+                    <Text style={styles.h2}>Add Workout</Text>
+
+                    <View style={styles.centeredView}>
+                        <LabeledTextInput label="Name" onChangeText={setName} />
+                    </View>
+                    
+                    <FitnessTrackerButton title="Add" onPress={handleAddWorkout} />
+
+                    <FitnessTrackerButton
+                        title="Back" onPress={() => props.onNavigate("WorkoutsPage")}
+                    />
+                </View>
             </View>
-            
-            <Button title="Add" onPress={handleAddWorkout} />
-            <Button title="Back" onPress={ () => props.onNavigate("WorkoutsPage") } />
         </View>
     );
 };
 
 export default AddWorkoutPage;
-
-// =================================================================================================
-// Stylesheet
-// =================================================================================================
-const styles = StyleSheet.create({
-    containerView: {
-        flex: 1,
-        backgroundColor: "white",
-        marginTop: 51,
-        marginBottom: 51,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-
-    inputFieldsView: {
-        width: "80%"
-    }
-});

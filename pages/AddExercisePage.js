@@ -2,13 +2,16 @@
 // External Dependencies
 // =================================================================================================
 import { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
+import styles from "../styles.js";
 import ErrorMessagePage from "./ErrorMessagePage";
+import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
 import LabeledTextInput from "../components/LabeledTextInput";
+import Title from "../components/Title.js";
 import database from "../services/database.js";
 
 // =================================================================================================
@@ -41,41 +44,32 @@ const AddExercisePage = (props) => {
     }
 
     return(
-        <View style={styles.containerView} >
-            <Text>Add Exercise</Text>
+        <View style={styles.screen}>
+            <View style={styles.contentContainer}>
+                <View style={styles.head}>
+                    <Title />
+                </View>
 
-            <View style={styles.inputFieldsView} >
-                <LabeledTextInput label="Name" onChangeText={setName} />
-                <LabeledTextInput label="Weight" onChangeText={setWeight} />
-                <LabeledTextInput label="Sets" onChangeText={setSets} />
-                <LabeledTextInput label="Reps" onChangeText={setReps} />
+                <View style={styles.body}>
+                    <Text style={styles.h2}>Add Exercise</Text>
+
+                    <View style={styles.centeredView}>
+                        <LabeledTextInput label="Name" onChangeText={setName} />
+                        <LabeledTextInput label="Weight" onChangeText={setWeight} />
+                        <LabeledTextInput label="Sets" onChangeText={setSets} />
+                        <LabeledTextInput label="Reps" onChangeText={setReps} />
+                    </View>
+
+                    <FitnessTrackerButton title="Add" onPress={handleAddExercise} />
+
+                    <FitnessTrackerButton
+                        title="Back"
+                        onPress={() => props.onNavigate("WorkoutPage", props.workoutId)}
+                    />
+                </View>
             </View>
-
-            <Button title="Add" onPress={handleAddExercise} />
-
-            <Button
-                title="Back" onPress={ () => props.onNavigate("WorkoutPage", props.workoutId) }
-            />
         </View>
     );
 };
 
 export default AddExercisePage;
-
-// =================================================================================================
-// Stylesheet
-// =================================================================================================
-const styles = StyleSheet.create({
-    containerView: {
-        flex: 1,
-        backgroundColor: "white",
-        marginTop: 51,
-        marginBottom: 51,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-
-    inputFieldsView: {
-        width: "80%"
-    }
-});

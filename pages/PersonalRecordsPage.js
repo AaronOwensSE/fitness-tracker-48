@@ -25,7 +25,7 @@ const PersonalRecordsPage = (props) => {
     const [ loading, setLoading ] = useState(true);
 
     // Hooks =======================================================================================
-    useEffect( () => {
+    useEffect(() => {
         const load = async () => {
             try {
                 setPersonalRecords(await database.readPersonalRecords());
@@ -37,20 +37,20 @@ const PersonalRecordsPage = (props) => {
         };
 
         load();
-    }, [] );
+    }, []);
 
     // Handlers ====================================================================================
-    const handleChangeText = (index, text) => {
-        // State is immutable. We cannot modify prs directly, so we copy both the array and the
+    const handleChangeText = ( index, text ) => {
+        // State is immutable. We cannot modify PRs directly, so we copy both the array and the
         // object in question so that we are not modifying a reference at any point.
         const updatedPersonalRecords = [...personalRecords];
         updatedPersonalRecords[index] = { ...updatedPersonalRecords[index], weight: text };
         setPersonalRecords(updatedPersonalRecords);
     };
 
-    const handleUpdatePersonalRecord = async (name, weight) => {
+    const handleUpdatePersonalRecord = async ( name, weight ) => {
         try {
-            await database.updatePersonalRecord(name, weight);
+            await database.updatePersonalRecord( name, weight );
         } catch (error) {
             setErrorMessage("Data storage error.");
         }
@@ -78,23 +78,23 @@ const PersonalRecordsPage = (props) => {
     }
 
     return(
-        <View style={styles.screen} >
-            <View style={styles.contentContainer} >
+        <View style={styles.screen}>
+            <View style={styles.contentContainer}>
                 <View style={styles.head}>
                     <Title />
                 </View>
 
-                <View style={styles.body} >
+                <View style={styles.body}>
                     <Text style={styles.h2}>Personal Records</Text>
 
                     <View style={styles.scrollViewContainer}>
                         <ScrollView>
                             {personalRecords.map(
-                                (personalRecord, index) => <PersonalRecordLineItem 
+                                ( personalRecord, index ) => <PersonalRecordLineItem 
                                     key={personalRecord.name}
                                     name={personalRecord.name}
                                     weight={personalRecord.weight}
-                                    onChangeText={(text) => handleChangeText(index, text)}
+                                    onChangeText={(text) => handleChangeText( index, text )}
                                     onUpdate={handleUpdatePersonalRecord}
                                     onDelete={handleDeletePersonalRecord}
                                 />
@@ -104,11 +104,11 @@ const PersonalRecordsPage = (props) => {
 
                     <FitnessTrackerButton
                         title="Add Personal Record"
-                        onPress={ () => props.onNavigate("AddPersonalRecordPage") }
+                        onPress={() => props.onNavigate("AddPersonalRecordPage")}
                     />
 
                     <FitnessTrackerButton
-                        title="Back" onPress={ () => props.onNavigate("LandingPage") }
+                        title="Back" onPress={() => props.onNavigate("LandingPage")}
                     />
                 </View>
             </View>

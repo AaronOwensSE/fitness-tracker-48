@@ -51,16 +51,13 @@ const AddPersonalRecordPage = (props) => {
 
                     <View style={styles.centeredView}>
                         <LabeledTextInput label="Name" onChangeText={setName} />
-                
-                        <LabeledTextInput
-                            label="Weight" onChangeText={setWeight}
-                        />
+                        <LabeledTextInput label="Weight" onChangeText={setWeight} />
                     </View>
 
                     <FitnessTrackerButton title="Add" onPress={handleAddPersonalRecord} />
 
                     <FitnessTrackerButton
-                        title="Back" onPress={ () => props.onNavigate("PersonalRecordsPage") }
+                        title="Back" onPress={() => props.onNavigate("PersonalRecordsPage")}
                     />
                 </View>
             </View>

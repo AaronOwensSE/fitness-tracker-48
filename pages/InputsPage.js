@@ -31,7 +31,7 @@ const InputsPage = (props) => {
     const [ loading, setLoading ] = useState(true);
 
     // Hooks =======================================================================================
-    useEffect( () => {
+    useEffect(() => {
         const load = async () => {
             try {
                 setBodyWeight(await storage.getItem("bodyWeight"));
@@ -49,18 +49,18 @@ const InputsPage = (props) => {
         };
 
         load();
-    }, [] );
+    }, []);
 
     // Handlers ====================================================================================
     const handleUpdateInputs = async () => {
         try {
-            await storage.setItem("bodyWeight", Number(bodyWeight));
-            await storage.setItem("restingMetabolicRate", Number(restingMetabolicRate));
-            await storage.setItem("leanMass", Number(leanMass));
-            await storage.setItem("boneMass", Number(boneMass));
-            await storage.setItem("targetLeanMass", Number(targetLeanMass));
-            await storage.setItem("targetBodyFatPercentage", Number(targetBodyFatPercentage));
-            await storage.setItem("activityLevel", Number(activityLevel));
+            await storage.setItem( "bodyWeight", Number(bodyWeight) );
+            await storage.setItem( "restingMetabolicRate", Number(restingMetabolicRate) );
+            await storage.setItem( "leanMass", Number(leanMass) );
+            await storage.setItem( "boneMass", Number(boneMass) );
+            await storage.setItem( "targetLeanMass", Number(targetLeanMass) );
+            await storage.setItem( "targetBodyFatPercentage", Number(targetBodyFatPercentage) );
+            await storage.setItem( "activityLevel", Number(activityLevel) );
 
             props.onNavigate("LandingPage");
         } catch (error) {
@@ -78,9 +78,9 @@ const InputsPage = (props) => {
     }
 
     return(
-        <View style={styles.screen} >
-            <View style={styles.contentContainer} >
-                <View style={styles.head} >
+        <View style={styles.screen}>
+            <View style={styles.contentContainer}>
+                <View style={styles.head}>
                     <Title />
                 </View>
 
@@ -90,43 +90,43 @@ const InputsPage = (props) => {
                     <View style={styles.centeredView}>
                         <LabeledTextInput
                             label="Body Weight (Pounds)"
-                            value={ String(bodyWeight) }
+                            value={String(bodyWeight)}
                             onChangeText={setBodyWeight}
                         />
 
                         <LabeledTextInput
                             label="Resting Metabolic Rate (Calories)"
-                            value={ String(restingMetabolicRate) }
+                            value={String(restingMetabolicRate)}
                             onChangeText={setRestingMetabolicRate}
                         />
 
                         <LabeledTextInput
                             label="Lean Mass (Pounds)"
-                            value={ String(leanMass) }
+                            value={String(leanMass)}
                             onChangeText={setLeanMass}
                         />
 
                         <LabeledTextInput
                             label="Bone Mass (Pounds)"
-                            value={ String(boneMass) }
+                            value={String(boneMass)}
                             onChangeText={setBoneMass}
                         />
 
                         <LabeledTextInput
                             label="Target Lean Mass (Pounds)"
-                            value={ String(targetLeanMass) }
+                            value={String(targetLeanMass)}
                             onChangeText={setTargetLeanMass}
                         />
 
                         <LabeledTextInput
                             label="Target Body Fat %"
-                            value={ String(targetBodyFatPercentage) }
+                            value={String(targetBodyFatPercentage)}
                             onChangeText={setTargetBodyFatPercentage}
                         />
 
                         <LabeledTextInput
                             label="Activity Level (~1.2 to 1.8)"
-                            value={ String(activityLevel) }
+                            value={String(activityLevel)}
                             onChangeText={setActivityLevel}
                         />
                     </View>
@@ -134,7 +134,7 @@ const InputsPage = (props) => {
                     <FitnessTrackerButton title="Update" onPress={handleUpdateInputs} />
                     
                     <FitnessTrackerButton
-                        title="Back" onPress={ () => props.onNavigate("LandingPage") }
+                        title="Back" onPress={() => props.onNavigate("LandingPage")}
                     />
                 </View>
             </View>

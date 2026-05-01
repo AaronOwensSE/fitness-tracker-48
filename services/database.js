@@ -18,6 +18,9 @@ const dbPromise = SQLite.openDatabaseAsync("fitness-tracker.db");   // Unhandled
 // =================================================================================================
 // API
 // =================================================================================================
+/**
+ * @throws {DatabaseSetupError}
+ */
 async function buildSchema() {
     const db = await dbPromise;
 
@@ -52,6 +55,9 @@ async function buildSchema() {
     }
 }
 
+/**
+ * @throws {DataStorageError}
+ */
 async function createPersonalRecord(name, weight) {
     const db = await dbPromise;
 
@@ -64,6 +70,9 @@ async function createPersonalRecord(name, weight) {
     }
 }
 
+/**
+ * @throws {DataRetrievalError}
+ */
 async function readPersonalRecords() {
     const db = await dbPromise;
     let result;
@@ -77,6 +86,9 @@ async function readPersonalRecords() {
     return result;
 }
 
+/**
+ * @throws {DataStorageError}
+ */
 async function updatePersonalRecord(name, weight) {
     const db = await dbPromise;
 
@@ -89,6 +101,9 @@ async function updatePersonalRecord(name, weight) {
     }
 }
 
+/**
+ * @throws {DataDeletionError}
+ */
 async function deletePersonalRecord(name) {
     const db = await dbPromise;
 
@@ -99,6 +114,9 @@ async function deletePersonalRecord(name) {
     }
 }
 
+/**
+ * @throws {DataStorageError}
+ */
 async function createWorkout(name) {
     const db = await dbPromise;
     let result;
@@ -116,6 +134,9 @@ async function createWorkout(name) {
     return id;
 }
 
+/**
+ * @throws {DataRetrievalError}
+ */
 async function readWorkouts() {
     const db = await dbPromise;
     let result;
@@ -129,6 +150,9 @@ async function readWorkouts() {
     return result;
 }
 
+/**
+ * @throws {DataRetrievalError}
+ */
 async function readWorkout(id) {
     const db = await dbPromise;
     let result;
@@ -142,6 +166,9 @@ async function readWorkout(id) {
     return result;
 }
 
+/**
+ * @throws {DataDeletionError}
+ */
 async function deleteWorkout(id) {
     const db = await dbPromise;
 
@@ -152,6 +179,9 @@ async function deleteWorkout(id) {
     }
 }
 
+/**
+ * @throws {DataStorageError}
+ */
 async function createExercise(name, weight, sets, reps, workout) {
     const db = await dbPromise;
     let result;
@@ -172,6 +202,9 @@ async function createExercise(name, weight, sets, reps, workout) {
     return id;
 }
 
+/**
+ * @throws {DataRetrievalError}
+ */
 async function readExercisesByWorkoutId(workoutId) {
     const db = await dbPromise;
     let result;
@@ -187,6 +220,9 @@ async function readExercisesByWorkoutId(workoutId) {
     return result;
 }
 
+/**
+ * @throws {DataDeletionError}
+ */
 async function deleteExercise(exerciseId) {
     const db = await dbPromise;
 
@@ -199,14 +235,17 @@ async function deleteExercise(exerciseId) {
 
 const database = {
     buildSchema,
+
     createPersonalRecord,
     readPersonalRecords,
     updatePersonalRecord,
     deletePersonalRecord,
+
     createWorkout,
     readWorkouts,
     readWorkout,
     deleteWorkout,
+    
     createExercise,
     readExercisesByWorkoutId,
     deleteExercise

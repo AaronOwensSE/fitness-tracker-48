@@ -14,7 +14,7 @@ import styles from "../styles.js";
 const Title = (props) => {
     // JSX =========================================================================================
     return(
-        <Text style={[ props.style, styles.h1 ]} >Fitness Tracker 48</Text>
+        <Text style={[ props.style, styles.h1 ]}>Fitness Tracker 48</Text>
     );
 };
 

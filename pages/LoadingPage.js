@@ -16,13 +16,13 @@ const LoadingPage = () => {
     // JSX =========================================================================================
     return (
         <View style={styles.screen}>
-            <View style={styles.contentContainer} >
-                <View style={styles.head} >
+            <View style={styles.contentContainer}>
+                <View style={styles.head}>
                     <Title />
                 </View>
 
-                <View style={styles.body} >
-                    <Text style={styles.text} >Loading . . .</Text>
+                <View style={styles.body}>
+                    <Text style={styles.text}>Loading . . .</Text>
                 </View>
             </View>
         </View>

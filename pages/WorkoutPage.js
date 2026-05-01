@@ -2,14 +2,17 @@
 // External Dependencies
 // =================================================================================================
 import { useEffect, useState } from "react";
-import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
 // =================================================================================================
+import styles from "../styles.js";
 import ErrorMessagePage from "./ErrorMessagePage.js";
 import LoadingPage from "./LoadingPage.js";
 import ExerciseLineItem from "../components/ExerciseLineItem.js";
+import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
+import Title from "../components/Title.js";
 import database from "../services/database.js";
 
 // =================================================================================================
@@ -23,7 +26,7 @@ const WorkoutPage = (props) => {
     const [ errorMessage, setErrorMessage ] = useState(null);
 
     // Hooks =======================================================================================
-    useEffect( () => {
+    useEffect(() => {
         const load = async () => {
             try {
                 setWorkout(await database.readWorkout(props.workoutId));
@@ -36,7 +39,7 @@ const WorkoutPage = (props) => {
         };
 
         load();
-    }, [] );
+    }, []);
 
     // Handlers ====================================================================================
     const handleDeleteExercise = async (id) => {
@@ -59,53 +62,44 @@ const WorkoutPage = (props) => {
         return <ErrorMessagePage errorMessage={errorMessage} onNavigate={props.onNavigate} />;
     }
 
-    return (
-        <View style={styles.containerView} >
-            <Text>Workout: {workout.name}</Text>
+    return(
+        <View style={styles.screen}>
+            <View style={styles.contentContainer}>
+                <View style={styles.head}>
+                    <Title />
+                </View>
 
-            <View style={styles.scrollViewWrapperView}>
-                <ScrollView>
-                    {exercises.map(
-                        (exercise) => <ExerciseLineItem
-                            key={exercise.id}
-                            id={exercise.id}
-                            name={exercise.name}
-                            weight={exercise.weight}
-                            sets={exercise.sets}
-                            reps={exercise.reps}
-                            onDelete={handleDeleteExercise}
-                        />
-                    )}
-                </ScrollView>
+                <View style={styles.body}>
+                    <Text style={styles.h2}>Workout: {workout.name}</Text>
+
+                    <View style={styles.scrollViewContainer}>
+                        <ScrollView>
+                            {exercises.map(
+                                (exercise) => <ExerciseLineItem
+                                    key={exercise.id}
+                                    id={exercise.id}
+                                    name={exercise.name}
+                                    weight={exercise.weight}
+                                    sets={exercise.sets}
+                                    reps={exercise.reps}
+                                    onDelete={handleDeleteExercise}
+                                />
+                            )}
+                        </ScrollView>
+                    </View>
+
+                    <FitnessTrackerButton
+                        title="Add Exercise"
+                        onPress={() => props.onNavigate("AddExercisePage", workout.id)}
+                    />
+
+                    <FitnessTrackerButton
+                        title="Back" onPress={() => props.onNavigate("WorkoutsPage")}
+                    />
+                </View>
             </View>
-
-            <Button
-                title="Add Exercise"
-                onPress={ () => props.onNavigate("AddExercisePage", workout.id) }
-            />
-
-            <Button title="Back" onPress={ () => props.onNavigate("WorkoutsPage") } />
         </View>
     );
 };
 
 export default WorkoutPage;
-
-// =================================================================================================
-// Stylesheet
-// =================================================================================================
-const styles = StyleSheet.create({
-    containerView: {
-        flex: 1,
-        backgroundColor: "white",
-        marginTop: 51,
-        marginBottom: 51,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-
-    scrollViewWrapperView: {
-        width: "80%",
-        height: "30%",
-    }
-});

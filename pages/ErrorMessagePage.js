@@ -16,19 +16,19 @@ import Title from "../components/Title.js";
 const ErrorMessagePage = (props) => {
     // JSX =========================================================================================
     return(
-        <View style={styles.screen} >
-            <View style={styles.contentContainer} >
-                <View style={styles.head} >
+        <View style={styles.screen}>
+            <View style={styles.contentContainer}>
+                <View style={styles.head}>
                     <Title />
                 </View>
 
-                <View style={styles.body} >
-                    <Text style={styles.text} >{props.errorMessage + "\n"}</Text>
+                <View style={styles.body}>
+                    <Text style={styles.text}>{props.errorMessage + "\n"}</Text>
 
                     <FitnessTrackerButton 
                         style={styles.fitnessTrackerButton}
                         title="Back"
-                        onPress={ () => props.onNavigate("LandingPage") }
+                        onPress={() => props.onNavigate("LandingPage")}
                     />
                 </View>
             </View>
