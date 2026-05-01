@@ -8,17 +8,40 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-| Deployment | Polish | Setup |
-| Documentation |  | Requirements Specification |
+|  | Documentation | Setup |
+|  |  | Requirements Specification |
 |  |  | Architecture Specification |
 |  |  | Macros and Calories |
 |  |  | PRs |
 |  |  | Workouts |
 |  |  | Exercises |
+|  |  | Polish |
+
+### Sprint 7: Documentation
+
+#### Velocity: 
+
+#### Backlog
+
+| Feature | Points |
+|---|---|
+| Update Descriptions | 2 |
+| Update Architecture | 5 |
+| Lessons Learned | 5 |
+| Future Directions | 3 |
+| Demo | 8 |
+
+| To Do | Doing | Done |
+|---|---|---|
+| Update Descriptions |  |  |
+| Update Architecture |  |  |
+| Lessons Learned |  |  |
+| Future Directions |  |  |
+| Demo |  |  |
 
 ### Sprint 6: Polish
 
-#### Velocity: 
+#### Velocity: 37
 
 #### Backlog
 
@@ -36,7 +59,7 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 
 | To Do | Doing | Done |
 |---|---|---|
-|  | Apply New Visuals to Pages | Trim Input/Output Scope |
+|  |  | Trim Input/Output Scope |
 |  |  | Clarify Naming |
 |  |  | Type Scale Choices |
 |  |  | Color Choices |
@@ -44,6 +67,7 @@ A 48-hour project to build a simple fitness tracker app. Calculates calories and
 |  |  | Title Component |
 |  |  | FitnessTrackerButton Component |
 |  |  | OutputLineItem Component |
+|  |  | Apply New Visuals to Pages |
 
 ### Sprint 5: Exercises
 
