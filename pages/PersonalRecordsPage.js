@@ -14,25 +14,38 @@ import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
 import PersonalRecordLineItem from "../components/PersonalRecordLineItem.js";
 import Title from "../components/Title.js";
 import database from "../services/database.js";
+import validation from "../services/validation.js";
 
 // =================================================================================================
 // Page
 // =================================================================================================
 const PersonalRecordsPage = (props) => {
     // State =======================================================================================
-    const [ personalRecords, setPersonalRecords ] = useState([]);
+    const [ personalRecordsText, setPersonalRecordsText ] = useState([]);
     const [ errorMessage, setErrorMessage ] = useState(null);
     const [ loading, setLoading ] = useState(true);
 
     // Hooks =======================================================================================
     useEffect(() => {
         const load = async () => {
+            let personalRecords;
+
             try {
-                setPersonalRecords(await database.readPersonalRecords());
+                personalRecords = await database.readPersonalRecords();
             } catch (error) {
                 setErrorMessage("Data retrieval error.");
+                setLoading(false);
+
+                return;
             }
 
+            const personalRecordsConversion = [...personalRecords];
+
+            for (let i = 0; i < personalRecordsConversion.length; i++) {
+                personalRecordsConversion[i].weight = String(personalRecords[i].weight);
+            }
+
+            setPersonalRecordsText(personalRecordsConversion);
             setLoading(false);
         };
 
@@ -43,12 +56,20 @@ const PersonalRecordsPage = (props) => {
     const handleChangeText = ( index, text ) => {
         // State is immutable. We cannot modify PRs directly, so we copy both the array and the
         // object in question so that we are not modifying a reference at any point.
-        const updatedPersonalRecords = [...personalRecords];
-        updatedPersonalRecords[index] = { ...updatedPersonalRecords[index], weight: text };
-        setPersonalRecords(updatedPersonalRecords);
+        const updatedPersonalRecordsText = [...personalRecordsText];
+        updatedPersonalRecordsText[index] = { ...updatedPersonalRecordsText[index], weight: text };
+        setPersonalRecordsText(updatedPersonalRecordsText);
     };
 
-    const handleUpdatePersonalRecord = async ( name, weight ) => {
+    const handleUpdatePersonalRecord = async ( name, weightText ) => {
+        const weight = Number(weightText);
+
+        if (!validation.isValidPersonalRecordWeight(weight)) {
+            setErrorMessage("Invalid personal record.");
+
+            return;
+        }
+
         try {
             await database.updatePersonalRecord( name, weight );
         } catch (error) {
@@ -58,8 +79,10 @@ const PersonalRecordsPage = (props) => {
 
     const handleDeletePersonalRecord = async (name) => {
         // Again, state is immutable. We create a copy of prs with the deleted item absent.
-        const updatedPRs = personalRecords.filter(personalRecord => personalRecord.name !== name);
-        setPersonalRecords(updatedPRs);
+        const updatedPersonalRecordsText =
+            personalRecordsText.filter(personalRecordText => personalRecordText.name !== name);
+        
+        setPersonalRecordsText(updatedPersonalRecordsText);
 
         try {
             await database.deletePersonalRecord(name);
@@ -89,11 +112,11 @@ const PersonalRecordsPage = (props) => {
 
                     <View style={styles.scrollViewContainer}>
                         <ScrollView>
-                            {personalRecords.map(
-                                ( personalRecord, index ) => <PersonalRecordLineItem 
-                                    key={personalRecord.name}
-                                    name={personalRecord.name}
-                                    weight={personalRecord.weight}
+                            {personalRecordsText.map(
+                                ( personalRecordText, index ) => <PersonalRecordLineItem 
+                                    key={personalRecordText.name}
+                                    name={personalRecordText.name}
+                                    weight={personalRecordText.weight}
                                     onChangeText={(text) => handleChangeText( index, text )}
                                     onUpdate={handleUpdatePersonalRecord}
                                     onDelete={handleDeletePersonalRecord}

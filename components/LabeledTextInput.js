@@ -20,6 +20,8 @@ const LabeledTextInput = (props) => {
             <TextInput
                 style={componentStyles.textInput}
                 value={props.value}
+                keyboardType={props.keyboardType}
+                returnKeyType="done"
                 onChangeText={props.onChangeText}
             />
         </View>

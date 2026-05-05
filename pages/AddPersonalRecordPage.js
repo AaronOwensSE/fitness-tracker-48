@@ -13,6 +13,7 @@ import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
 import LabeledTextInput from "../components/LabeledTextInput.js";
 import Title from "../components/Title.js";
 import database from "../services/database.js";
+import validation from "../services/validation.js";
 
 // =================================================================================================
 // Page
@@ -20,15 +21,28 @@ import database from "../services/database.js";
 const AddPersonalRecordPage = (props) => {
     // State =======================================================================================
     const [ name, setName ] = useState(null);
-    const [ weight, setWeight ] = useState(null);
+    const [ weightText, setWeightText ] = useState(null);
     const [ errorMessage, setErrorMessage ] = useState(null);
 
     // Handlers ====================================================================================
     const handleAddPersonalRecord = async () => {
+        const personalRecord = {
+            name: name,
+            weight: Number(weightText)
+        };
+
+        if (!validation.isValidPersonalRecord(personalRecord)) {
+            setErrorMessage("Invalid personal record.");
+
+            return;
+        }
+
         try {
-            await database.createPersonalRecord(name, weight);
+            await database.createPersonalRecord(personalRecord.name, personalRecord.weight);
         } catch (error) {
             setErrorMessage("Data storage error.");
+
+            return;
         }
 
         props.onNavigate("PersonalRecordsPage");
@@ -50,8 +64,13 @@ const AddPersonalRecordPage = (props) => {
                     <Text style={styles.h2}>Add Personal Record</Text>
 
                     <View style={styles.centeredView}>
-                        <LabeledTextInput label="Name" onChangeText={setName} />
-                        <LabeledTextInput label="Weight" onChangeText={setWeight} />
+                        <LabeledTextInput
+                            label="Name" keyboardType="default" onChangeText={setName}
+                        />
+
+                        <LabeledTextInput
+                            label="Weight" keyboardType="decimal-pad" onChangeText={setWeightText}
+                        />
                     </View>
 
                     <FitnessTrackerButton title="Add" onPress={handleAddPersonalRecord} />

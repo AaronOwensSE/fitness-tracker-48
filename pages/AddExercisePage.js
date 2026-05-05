@@ -13,6 +13,7 @@ import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
 import LabeledTextInput from "../components/LabeledTextInput";
 import Title from "../components/Title.js";
 import database from "../services/database.js";
+import validation from "../services/validation.js";
 
 // =================================================================================================
 // Page
@@ -20,16 +21,26 @@ import database from "../services/database.js";
 const AddExercisePage = (props) => {
     // State =======================================================================================
     const [ name, setName ] = useState(null);
-    const [ weight, setWeight ] = useState(null);
-    const [ sets, setSets ] = useState(null);
-    const [ reps, setReps ] = useState(null);
+    const [ weightText, setWeightText ] = useState(null);
+    const [ setsText, setSetsText ] = useState(null);
+    const [ repsText, setRepsText ] = useState(null);
     const [ errorMessage, setErrorMessage ] = useState(null);
 
     // Handlers ====================================================================================
     const handleAddExercise = async () => {
+        const weight = Number(weightText);
+        const sets = Number(setsText);
+        const reps = Number(repsText);
+
+        if (!validation.isValidExercise({ name, weight, sets, reps })) {
+            setErrorMessage("Invalid exercise.");
+
+            return;
+        }
+
         try {
             await database.createExercise(
-                name, Number(weight), Number(sets), Number(reps), props.workoutId
+                name, weight, sets, reps, props.workoutId
             );
         } catch (error) {
             setErrorMessage("Data storage error.");
@@ -54,10 +65,21 @@ const AddExercisePage = (props) => {
                     <Text style={styles.h2}>Add Exercise</Text>
 
                     <View style={styles.centeredView}>
-                        <LabeledTextInput label="Name" onChangeText={setName} />
-                        <LabeledTextInput label="Weight" onChangeText={setWeight} />
-                        <LabeledTextInput label="Sets" onChangeText={setSets} />
-                        <LabeledTextInput label="Reps" onChangeText={setReps} />
+                        <LabeledTextInput
+                            label="Name" keyboardType="default" onChangeText={setName}
+                        />
+
+                        <LabeledTextInput
+                            label="Weight" keyboardType="decimal-pad" onChangeText={setWeightText}
+                        />
+
+                        <LabeledTextInput
+                            label="Sets" keyboardType="decimal-pad" onChangeText={setSetsText}
+                        />
+
+                        <LabeledTextInput
+                            label="Reps" keyboardType="decimal-pad" onChangeText={setRepsText}
+                        />
                     </View>
 
                     <FitnessTrackerButton title="Add" onPress={handleAddExercise} />

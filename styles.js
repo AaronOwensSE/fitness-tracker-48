@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     h1: {
         marginTop: 5,
         marginBottom: 5,
+        fontFamily: "Poppins_700Bold",
         fontSize: 28.43,
         fontWeight: "bold",
         color: "white"
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
     h2: {
         marginTop: 5,
         marginBottom: 5,
+        fontFamily: "Poppins_600SemiBold",
         fontSize: 21.33,
         fontWeight: "bold",
         color: "white"
@@ -60,12 +62,14 @@ const styles = StyleSheet.create({
     h3: {
         marginTop: 3,
         marginBottom: 3,
+        fontFamily: "Poppins_500Medium",
         fontSize: 16,
         fontWeight: "bold",
         color: "white"
     },
 
     text: {
+        fontFamily: "Poppins_400Regular",
         fontSize: 16,
         color: "darkblue"
     }

@@ -11,6 +11,14 @@ import errors from "../errors.js";
 // =================================================================================================
 // API
 // =================================================================================================
+// Testing
+async function clearStorage() {
+    try {
+        await AsyncStorage.clear();
+    } catch (error) {
+    }
+}
+
 /**
  * @throws {DataStorageError}
  */
@@ -41,5 +49,5 @@ async function getItem(key) {
     return value;
 }
 
-const storage = { setItem, getItem };
+const storage = { clearStorage, setItem, getItem };
 export default storage;

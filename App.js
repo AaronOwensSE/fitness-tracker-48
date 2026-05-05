@@ -1,7 +1,15 @@
 // =================================================================================================
 // External Dependencies
 // =================================================================================================
+import { useFonts } from "expo-font";
 import { useEffect, useState } from "react";
+
+import {
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold
+} from "@expo-google-fonts/poppins";
 
 // =================================================================================================
 // Internal Dependencies
@@ -18,6 +26,7 @@ import PersonalRecordsPage from "./pages/PersonalRecordsPage.js";
 import WorkoutPage from "./pages/WorkoutPage.js";
 import WorkoutsPage from "./pages/WorkoutsPage.js";
 import database from "./services/database.js";
+import storage from "./services/storage.js";    // Testing
 
 // =================================================================================================
 // App
@@ -30,10 +39,15 @@ export default function App() {
     const [ errorMessage, setErrorMessage ] = useState(null);
 
     // Hooks =======================================================================================
+    useFonts({ Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold, Poppins_700Bold });
+
     useEffect(() => {
         const load = async () => {
+            //await storage.clearStorage();   // Testing
+            //await database.deleteSchema();  // Testing
+
             try {
-                await database.buildSchema();
+                await database.createSchema();
             } catch (error) {
                 setErrorMessage("Database setup error.");
             }

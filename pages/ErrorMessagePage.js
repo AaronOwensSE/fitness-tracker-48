@@ -27,7 +27,7 @@ const ErrorMessagePage = (props) => {
 
                     <FitnessTrackerButton 
                         style={styles.fitnessTrackerButton}
-                        title="Back"
+                        title="OK"
                         onPress={() => props.onNavigate("LandingPage")}
                     />
                 </View>

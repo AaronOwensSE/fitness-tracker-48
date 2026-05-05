@@ -15,36 +15,125 @@ import OutputLineItem from "../components/OutputLineItem.js";
 import Title from "../components/Title.js";
 import formulas from "../services/formulas.js";
 import storage from "../services/storage.js";
+import validation from "../services/validation.js";
 
 // =================================================================================================
 // Page
 // =================================================================================================
 const OutputsPage = (props) => {
     // State =======================================================================================
-    const [ bodyWeight, setBodyWeight ] = useState(null);
-    const [ targetLeanMass, setTargetLeanMass ] = useState(null);
-    const [ targetBodyFatPercentage, setTargetBodyFatPercentage ] = useState(null);
-    const [ leanMass, setLeanMass ] = useState(null);
-    const [ boneMass, setBoneMass ] = useState(null);
-    const [ restingMetabolicRate, setRestingMetabolicRate ] = useState(null);
-    const [ activityLevel, setActivityLevel ] = useState(null);
+    const [ targetWeight, setTargetWeight ] = useState(null);
+    const [ totalDailyEnergyExpenditure, setTotalDailyEnergyExpenditure ] = useState(null);
+    const [ dailyCaloriesForCut, setDailyCaloriesForCut ] = useState(null);
+    const [ dailyCaloriesForBulk, setDailyCaloriesForBulk ] = useState(null);
+    const [ proteinInGrams, setProteinInGrams ] = useState(null);
+    const [ proteinPercentageForCut, setProteinPercentageForCut ] = useState(null);
+    const [ proteinPercentageForMaintenance, setProteinPercentageForMaintenance ] = useState(null);
+    const [ proteinPercentageForBulk, setProteinPercentageForBulk ] = useState(null);
+    const [ fatInGrams, setFatInGrams ] = useState(null);
+    const [ fatPercentageForCut, setFatPercentageForCut ] = useState(null);
+    const [ fatPercentageForMaintenance, setFatPercentageForMaintenance ] = useState(null);
+    const [ fatPercentageForBulk, setFatPercentageForBulk ] = useState(null);
+    const [ carbsPercentageForCut, setCarbsPercentageForCut ] = useState(null);
+    const [ carbsPercentageForMaintenance, setCarbsPercentageForMaintenance ] = useState(null);
+    const [ carbsPercentageForBulk, setCarbsPercentageForBulk ] = useState(null);
     const [ errorMessage, setErrorMessage ]  = useState(null);
     const [ loading, setLoading ] = useState(true);
 
     // Hooks =======================================================================================
     useEffect(() => {
         const load = async () => {
+            const storedInputs = {};
+
             try {
-                setBodyWeight(await storage.getItem("bodyWeight"));
-                setTargetLeanMass(await storage.getItem("targetLeanMass"));
-                setTargetBodyFatPercentage(await storage.getItem("targetBodyFatPercentage"));
-                setLeanMass(await storage.getItem("leanMass"));
-                setBoneMass(await storage.getItem("boneMass"));
-                setRestingMetabolicRate(await storage.getItem("restingMetabolicRate"));
-                setActivityLevel(await storage.getItem("activityLevel"));
+                storedInputs.bodyWeight = await storage.getItem("bodyWeight");
+                storedInputs.targetLeanMass = await storage.getItem("targetLeanMass");
+                storedInputs.targetBodyFatPercentage = await storage.getItem("targetBodyFatPercentage");
+                storedInputs.leanMass = await storage.getItem("leanMass");
+                storedInputs.boneMass = await storage.getItem("boneMass");
+                storedInputs.restingMetabolicRate = await storage.getItem("restingMetabolicRate");
+                storedInputs.activityLevel = await storage.getItem("activityLevel");
             } catch (error) {
                 setErrorMessage("Data retrieval error.");
+                setLoading(false);
+
+                return;
             }
+
+            if (!validation.inputsAreValid(storedInputs)) {
+                setErrorMessage("Complete inputs to view outputs.");
+                setLoading(false);
+
+                return;
+            }
+
+            const targetWeight =
+                formulas.targetWeight(
+                    storedInputs.targetBodyFatPercentage,
+                    storedInputs.targetLeanMass,
+                    storedInputs.boneMass
+                );
+            
+            const totalDailyEnergyExpenditure =
+                formulas.totalDailyEnergyExpenditure(
+                    storedInputs.restingMetabolicRate, storedInputs.activityLevel
+                );
+            
+            const dailyCaloriesForCut =
+                formulas.dailyCaloriesForCut(
+                    storedInputs.bodyWeight, totalDailyEnergyExpenditure
+                );
+            
+            const dailyCaloriesForBulk =
+                formulas.dailyCaloriesForBulk(
+                    storedInputs.bodyWeight, totalDailyEnergyExpenditure
+                );
+            
+            const proteinInGrams = formulas.proteinInGrams(storedInputs.leanMass);
+
+            const proteinPercentageForCut =
+                formulas.proteinPercentage( proteinInGrams, dailyCaloriesForCut );
+            
+            const proteinPercentageForMaintenance =
+                formulas.proteinPercentage( proteinInGrams, totalDailyEnergyExpenditure );
+            
+            const proteinPercentageForBulk =
+                formulas.proteinPercentage( proteinInGrams, dailyCaloriesForBulk );
+            
+            const fatInGrams = formulas.fatInGrams(targetWeight);
+            const fatPercentageForCut = formulas.fatPercentage( fatInGrams, dailyCaloriesForCut );
+
+            const fatPercentageForMaintenance =
+                formulas.fatPercentage( fatInGrams, totalDailyEnergyExpenditure );
+            
+            const fatPercentageForBulk = formulas.fatPercentage( fatInGrams, dailyCaloriesForBulk );
+
+            const carbsPercentageForCut =
+                formulas.carbsPercentage( proteinPercentageForCut, fatPercentageForCut );
+            
+            const carbsPercentageForMaintenance =
+                formulas.carbsPercentage(
+                    proteinPercentageForMaintenance, fatPercentageForMaintenance
+                );
+            
+            const carbsPercentageForBulk =
+                formulas.carbsPercentage( proteinPercentageForBulk, fatPercentageForBulk );
+            
+            setTargetWeight(targetWeight);
+            setTotalDailyEnergyExpenditure(totalDailyEnergyExpenditure);
+            setDailyCaloriesForCut(dailyCaloriesForCut);
+            setDailyCaloriesForBulk(dailyCaloriesForBulk);
+            setProteinInGrams(proteinInGrams);
+            setProteinPercentageForCut(proteinPercentageForCut);
+            setProteinPercentageForMaintenance(proteinPercentageForMaintenance);
+            setProteinPercentageForBulk(proteinPercentageForBulk);
+            setFatInGrams(fatInGrams);
+            setFatPercentageForCut(fatPercentageForCut);
+            setFatPercentageForMaintenance(fatPercentageForMaintenance);
+            setFatPercentageForBulk(fatPercentageForBulk);
+            setCarbsPercentageForCut(carbsPercentageForCut);
+            setCarbsPercentageForMaintenance(carbsPercentageForMaintenance);
+            setCarbsPercentageForBulk(carbsPercentageForBulk);
 
             setLoading(false);
         };
@@ -60,36 +149,7 @@ const OutputsPage = (props) => {
     if (errorMessage !== null) {
         return <ErrorMessagePage errorMessage={errorMessage} onNavigate={props.onNavigate} />;
     }
-
-    const targetWeight = formulas.targetWeight( targetBodyFatPercentage, targetLeanMass, boneMass );
-
-    const totalDailyEnergyExpenditure =
-        formulas.totalDailyEnergyExpenditure( restingMetabolicRate, activityLevel );
-    const dailyCutCalories =
-        formulas.dailyCaloriesForCut( bodyWeight, totalDailyEnergyExpenditure );
-    const dailyBulkCalories =
-        formulas.dailyCaloriesForBulk( bodyWeight, totalDailyEnergyExpenditure );
-
-    const proteinInGrams = formulas.proteinInGrams(leanMass);
-    const proteinPercentageForCut = formulas.proteinPercentage( proteinInGrams, dailyCutCalories );
-    const proteinPercentageForMaintenance =
-        formulas.proteinPercentage( proteinInGrams, totalDailyEnergyExpenditure );
-    const proteinPercentageForBulk =
-        formulas.proteinPercentage( proteinInGrams, dailyBulkCalories );
-
-    const fatInGrams = formulas.fatInGrams(targetWeight);
-    const fatPercentageForCut = formulas.fatPercentage( fatInGrams, dailyCutCalories );
-    const fatPercentageForMaintenance =
-        formulas.fatPercentage( fatInGrams, totalDailyEnergyExpenditure );
-    const fatPercentageForBulk = formulas.fatPercentage( fatInGrams, dailyBulkCalories );
-
-    const carbsPercentageForCut =
-        formulas.carbsPercentage( proteinPercentageForCut, fatPercentageForCut );
-    const carbsPercentageForMaintenance =
-        formulas.carbsPercentage( proteinPercentageForMaintenance, fatPercentageForMaintenance );
-    const carbsPercentageForBulk =
-        formulas.carbsPercentage( proteinPercentageForBulk, fatPercentageForBulk );
-
+    
     return (
         <View style={styles.screen}>
             <View style={styles.contentContainer}>
@@ -109,7 +169,7 @@ const OutputsPage = (props) => {
                         />
 
                         <Text style={[ pageStyles.subHeadings, styles.h3 ]}>Cut</Text>
-                        <OutputLineItem name="Daily Calories: " data={dailyCutCalories} />
+                        <OutputLineItem name="Daily Calories: " data={dailyCaloriesForCut} />
 
                         <OutputLineItem
                             name="Protein: "
@@ -147,7 +207,7 @@ const OutputsPage = (props) => {
                         <OutputLineItem name="Carbs: " data={carbsPercentageForMaintenance + "%"} />
 
                         <Text style={[ pageStyles.subHeadings, styles.h3 ]}>Bulk</Text>
-                        <OutputLineItem name="Daily Calories: " data={dailyBulkCalories} />
+                        <OutputLineItem name="Daily Calories: " data={dailyCaloriesForBulk} />
 
                         <OutputLineItem
                             name="Protein: "

@@ -24,7 +24,11 @@ const WorkoutLineItem = (props) => {
             </View>
 
             <View style={componentStyles.deleteButtonView}>
-                <FitnessTrackerButton style={componentStyles.deleteButton} title="Delete" onPress={() => props.onDelete(props.id)} />
+                <FitnessTrackerButton
+                    style={componentStyles.deleteButton}
+                    title="Delete"
+                    onPress={() => props.onDelete(props.id)}
+                />
             </View>
         </View>
     );

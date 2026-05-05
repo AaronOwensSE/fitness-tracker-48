@@ -13,6 +13,7 @@ import FitnessTrackerButton from "../components/FitnessTrackerButton.js";
 import LabeledTextInput from "../components/LabeledTextInput";
 import Title from "../components/Title.js";
 import database from "../services/database.js";
+import validation from "../services/validation.js";
 
 // =================================================================================================
 // Page
@@ -24,6 +25,12 @@ const AddWorkoutPage = (props) => {
 
     // Handlers ====================================================================================
     const handleAddWorkout = async () => {
+        if (!validation.isValidWorkoutName(name)) {
+            setErrorMessage("Invalid workout.");
+
+            return;
+        }
+
         try {
             const workoutId = await database.createWorkout(name);
             props.onNavigate("WorkoutPage", workoutId);
@@ -48,7 +55,9 @@ const AddWorkoutPage = (props) => {
                     <Text style={styles.h2}>Add Workout</Text>
 
                     <View style={styles.centeredView}>
-                        <LabeledTextInput label="Name" onChangeText={setName} />
+                        <LabeledTextInput
+                            label="Name" keyboardType="default" onChangeText={setName}
+                        />
                     </View>
                     
                     <FitnessTrackerButton title="Add" onPress={handleAddWorkout} />

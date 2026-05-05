@@ -19,7 +19,8 @@ const PersonalRecordLineItem = (props) => {
             <View style={componentStyles.dataView}>
                 <LabeledTextInput
                     label={props.name}
-                    value={String(props.weight)}
+                    value={props.weight}
+                    keyboardType="decimal-pad"
                     onChangeText={props.onChangeText}
                 />
             </View>

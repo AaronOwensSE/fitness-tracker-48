@@ -45,6 +45,7 @@ const WorkoutsPage = (props) => {
         setWorkouts(updatedWorkouts);
         
         try {
+            await database.deleteExercisesByWorkoutId(id);
             await database.deleteWorkout(id);
         } catch (error) {
             setErrorMessage("Data deletion error.");
