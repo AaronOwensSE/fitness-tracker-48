@@ -61,7 +61,7 @@ After struggling with slow progress on a long project, I decided one Friday afte
 
 ### Validation Isn't Easy
 
-I tackled validation last instead of baking it into the design. That was a mistake. Particularly on the frontend, validation can present more challenges than might be expected. In this case, I was forced to confront my earlier assumptions about what exactly certain state variables represented. For example, should the variable storing the amount of weight used for an exercise be a Number, because that's what it is in the database, or a String, because that's what it has to be when it displays on the page? Should JavaScript's dynamic typing permit it to be either a Number or a String (or null) as needed, or should separate variables be used, one to cache the database value and another to update the UI? If two variables are used, when should changing one result in an update to the other? Adding proper input validation required me to tighten up my understanding of the data underlying my UI and carefully review how it was being pulled, passed, and updated on almost every page.
+I tackled validation last instead of baking it into the design. That was a mistake. Particularly on the frontend, validation can present more challenges than might be expected. In this case, I was forced to confront my earlier assumptions about what exactly certain state variables represented. For example, should the variable storing the amount of weight used for an exercise be a Number, because that's what it is in the database, or a String, because that's what it has to be when it displays on the page? Should JavaScript's dynamic typing permit the variable to be either a Number or a String (or null) as needed, or should separate variables be used, one to cache the database value and another to update the UI? If two variables are used, when should changing one result in an update to the other? Adding proper input validation required me to tighten up my understanding of the data underlying my UI and carefully review how it was being pulled, passed, and updated on almost every page.
 
 ### UI Doesn't Have to Be Hard
 
@@ -71,7 +71,7 @@ Pick three colors. Pick a font. Design three headings. Design an improved Button
 
 I remind myself of this on every project.
 
-Jot down user stories. Draw up architecture. Never fail to plan, and think everything through. But then, *get coding.* You will encounter complications during development that you did not consider during planning. That component diagram will need to be redrawn. That database schema will need to be modified. New user stories will present themselves, and low-value user stories will need to be eliminated. You cannot set out without a good map, but you cannot draw the best map until the journey is complete.
+Jot down user stories. Draw up architecture. Never fail to plan. Think everything through. But then *get coding.* You will encounter complications during development that you did not consider during planning. That component diagram will need to be redrawn. That database schema will need to be modified. New user stories will present themselves, and low-value user stories will need to be eliminated. You cannot set out without a good map, but you cannot draw the best map until the journey is complete.
 
 ### General Improvements
 
