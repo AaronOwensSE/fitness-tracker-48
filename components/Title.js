@@ -1,7 +1,7 @@
 // =================================================================================================
 // External Dependencies
 // =================================================================================================
-import { Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 // =================================================================================================
 // Internal Dependencies
@@ -14,8 +14,17 @@ import styles from "../styles.js";
 const Title = (props) => {
     // JSX =========================================================================================
     return(
-        <Text style={[ props.style, styles.h1 ]}>Fitness Tracker 48</Text>
+        <Text style={[ styles.h1, componentStyles.title, props.style ]}>Fitness Tracker 48</Text>
     );
 };
 
 export default Title;
+
+// =================================================================================================
+// Stylesheet
+// =================================================================================================
+const componentStyles = StyleSheet.create({
+    title: {
+        marginTop: 20
+    }
+});

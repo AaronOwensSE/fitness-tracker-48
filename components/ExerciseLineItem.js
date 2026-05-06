@@ -15,7 +15,7 @@ import FitnessTrackerButton from "./FitnessTrackerButton";
 const ExerciseLineItem = (props) => {
     // JSX =========================================================================================
     return(
-        <View style={[ props.style, componentStyles.containerView ]}>
+        <View style={[ componentStyles.containerView, props.style ]}>
             <View style={componentStyles.dataView}>
                 <Text style={styles.h3}>{props.name}</Text>
                 <Text style={styles.text}>{props.sets} x {props.reps} @ {props.weight}</Text>

@@ -14,7 +14,7 @@ import styles from "../styles.js";
 const OutputLineItem = (props) => {
     // JSX =========================================================================================
     return(
-        <View style={[ props.style, componentStyles.container ]}>
+        <View style={[ componentStyles.container, props.style ]}>
             <View style={componentStyles.column}>
                 <Text style={styles.text}>{props.name}</Text>
             </View>

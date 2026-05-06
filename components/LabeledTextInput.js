@@ -14,7 +14,7 @@ import styles from "../styles.js";
 const LabeledTextInput = (props) => {
     // JSX =========================================================================================
     return (
-        <View style={[ props.style, componentStyles.container ]}>
+        <View style={[ componentStyles.container, props.style ]}>
             <Text style={styles.text}>{props.label}</Text>
             
             <TextInput

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 
     scrollViewContainer: {
         width: "80%",
-        height: "40%"
+        height: "60%"
     },
 
     h1: {
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         fontFamily: "Poppins_700Bold",
         fontSize: 28.43,
-        fontWeight: "bold",
         color: "white"
     },
 
@@ -55,7 +54,6 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         fontFamily: "Poppins_600SemiBold",
         fontSize: 21.33,
-        fontWeight: "bold",
         color: "white"
     },
 
@@ -64,7 +62,6 @@ const styles = StyleSheet.create({
         marginBottom: 3,
         fontFamily: "Poppins_500Medium",
         fontSize: 16,
-        fontWeight: "bold",
         color: "white"
     },
 

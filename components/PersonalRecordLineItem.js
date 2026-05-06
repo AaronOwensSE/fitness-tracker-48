@@ -15,7 +15,7 @@ import LabeledTextInput from "./LabeledTextInput";
 const PersonalRecordLineItem = (props) => {
     // JSX =========================================================================================
     return(
-        <View style={[ props.style, componentStyles.containerView ]}>
+        <View style={[ componentStyles.containerView, props.style ]}>
             <View style={componentStyles.dataView}>
                 <LabeledTextInput
                     label={props.name}

@@ -15,7 +15,7 @@ const FitnessTrackerButton = (props) => {
     // JSX =========================================================================================
     return(
         <TouchableOpacity
-            style={[ props.style, componentStyles.fitnessTrackerButton ]}
+            style={[ componentStyles.fitnessTrackerButton, props.style ]}
             onPress={props.onPress}
         >
             <Text style={styles.text}>{props.title}</Text>
