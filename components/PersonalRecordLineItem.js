@@ -1,6 +1,7 @@
 // =================================================================================================
 // External Dependencies
 // =================================================================================================
+import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 // =================================================================================================
@@ -13,9 +14,19 @@ import LabeledTextInput from "./LabeledTextInput";
 // Component
 // =================================================================================================
 const PersonalRecordLineItem = (props) => {
+    // State =======================================================================================
+    const [ flash, setFlash ] = useState(false);
+
+    // Handlers ====================================================================================
+    const handlePress = () => {
+        props.onUpdate(props.name, props.weight);
+    };
+
     // JSX =========================================================================================
     return(
-        <View style={[ componentStyles.containerView, props.style ]}>
+        <View style={[
+            componentStyles.containerView, props.style, flash && componentStyles.flashContainerView
+        ]}>
             <View style={componentStyles.dataView}>
                 <LabeledTextInput
                     label={props.name}
@@ -27,7 +38,10 @@ const PersonalRecordLineItem = (props) => {
             
             <View style={componentStyles.buttonsView}>
                 <FitnessTrackerButton 
-                    title="Update" onPress={() => props.onUpdate(props.name, props.weight)}
+                    title="Update"
+                    onPress={handlePress}
+                    onPressIn={() => setFlash(true)}
+                    onPressOut={() => setFlash(false)}
                 />
 
                 <FitnessTrackerButton title="Delete" onPress={() => props.onDelete(props.name)} />
@@ -46,6 +60,10 @@ const componentStyles = StyleSheet.create({
         margin: 5,
         flex: 1,
         flexDirection: "row"
+    },
+
+    flashContainerView: {
+        backgroundColor: "beige"
     },
 
     dataView: {
