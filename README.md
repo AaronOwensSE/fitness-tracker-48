@@ -39,9 +39,9 @@ After struggling with slow progress on a long project, I decided one Friday afte
 
 ![An ER diagram](./documentation/er-diagram.jpeg)
 
-### App Data and Database Schema
+### Database Schema
 
-![The app data and database schema](./documentation/db-schema.jpeg)
+![A database schema](./documentation/db-schema.jpeg)
 
 ## Tools and Technologies
 
