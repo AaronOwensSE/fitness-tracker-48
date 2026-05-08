@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
         fontFamily: "Poppins_700Bold",
-        fontSize: 28.43,
+        fontSize: 28,
         color: "white"
     },
 
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
         fontFamily: "Poppins_600SemiBold",
-        fontSize: 21.33,
+        fontSize: 21,
         color: "white"
     },
 
