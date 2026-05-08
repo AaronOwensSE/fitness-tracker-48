@@ -6,6 +6,10 @@ A fitness tracker app originating from a project to build something new in 48 ho
 
 After struggling with slow progress on a long project, I decided one Friday afternoon to design, build, and ship something new in just 48 hours. By Sunday night, I had completed a mobile fitness app that calculated diet goals and tracked personal exercise records. I took another two weekends to add workout logging, visual polish, and better input validation. This repo captures the complete software development lifecycle of a simple but useful app delivered quickly.
 
+## Demo
+
+![A GIF demo](./documentation/demo.gif)
+
 ## Requirements Specification
 
 ### User Stories
@@ -110,10 +114,9 @@ Jot down user stories. Draw up architecture. Never fail to plan. Think everythin
 |  |  | Workouts |
 |  |  | Exercises |
 |  |  | Polish |
-|  |  | Validation |
-|  |  | Fonts |
+|  |  | Final Additions |
 
-### Sprint 7: Validation, Fonts, and Documentation
+### Sprint 7: Final Additions and Documentation
 
 #### Velocity: 
 
@@ -123,6 +126,7 @@ Jot down user stories. Draw up architecture. Never fail to plan. Think everythin
 |---|---|
 | Validation | 8 |
 | Fonts | 3 |
+| Personal Record Update Flash | 3 |
 | Update Descriptions | 2 |
 | Update Architecture | 5 |
 | Lessons Learned | 5 |
@@ -132,10 +136,12 @@ Jot down user stories. Draw up architecture. Never fail to plan. Think everythin
 | To Do | Doing | Done |
 |---|---|---|
 |  | Update Architecture | Validation |
-|  | Demo | Fonts |
+|  |  | Fonts |
 |  |  | Update Descriptions |
 |  |  | Lessons Learned |
 |  |  | Possibilities for Future Development |
+|  |  | Personal Record Update Flash |
+|  |  | Demo |
 
 ### Sprint 6: Polish
 
