@@ -41,7 +41,7 @@ After struggling with slow progress on a long project, I decided one Friday afte
 
 ### App Data and Database Schema
 
-![The app data and database schema](./documentation/app-data-and-db-schema.jpeg)
+![The app data and database schema](./documentation/db-schema.jpeg)
 
 ## Tools and Technologies
 
@@ -106,7 +106,7 @@ Jot down user stories. Draw up architecture. Never fail to plan. Think everythin
 
 | To Do | Doing | Done |
 |---|---|---|
-|  | Documentation | Setup |
+|  |  | Setup |
 |  |  | Requirements Specification |
 |  |  | Architecture Specification |
 |  |  | Macros and Calories |
@@ -115,10 +115,11 @@ Jot down user stories. Draw up architecture. Never fail to plan. Think everythin
 |  |  | Exercises |
 |  |  | Polish |
 |  |  | Final Additions |
+|  |  | Documentation |
 
 ### Sprint 7: Final Additions and Documentation
 
-#### Velocity: 
+#### Velocity: 37
 
 #### Backlog
 
@@ -135,13 +136,14 @@ Jot down user stories. Draw up architecture. Never fail to plan. Think everythin
 
 | To Do | Doing | Done |
 |---|---|---|
-|  | Update Architecture | Validation |
+|  |  | Validation |
 |  |  | Fonts |
 |  |  | Update Descriptions |
 |  |  | Lessons Learned |
 |  |  | Possibilities for Future Development |
 |  |  | Personal Record Update Flash |
 |  |  | Demo |
+|  |  | Update Architecture |
 
 ### Sprint 6: Polish
 
